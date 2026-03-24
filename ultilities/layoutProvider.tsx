@@ -1,4 +1,5 @@
 'use client';
+// AI GENERATED
 import { createContext, useContext, RefObject } from 'react';
 
 // 定義 Context 的型別

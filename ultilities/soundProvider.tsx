@@ -1,4 +1,5 @@
 'use client';
+// AI GENERATED
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type SoundContextType = {

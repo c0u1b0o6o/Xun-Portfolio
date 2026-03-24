@@ -10,7 +10,6 @@ import { Contact } from "@/components/windows/Contact";
 import { SettingWindow } from "@/components/windows/Setting";
 
 export default function Home() {
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const constraintsRef = React.useRef<HTMLDivElement>(null);
   
   return (
