@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono,Montserrat } from "next/font/google";
-import { SoundProvider } from "@/ultilities/soundProvider";
+import { SfxProvider } from "@/ultilities/sfxProvider";
+import { MusicProvider } from "@/ultilities/musicProvider";
 
 import "./globals.css";
 
@@ -35,11 +36,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SoundProvider>
-          <div className="relative z-10 flex-1">
-            {children}
-          </div>
-        </SoundProvider>
+        <SfxProvider>
+          <MusicProvider>
+            <div className="relative z-10 flex-1">
+              {children}
+            </div>
+          </MusicProvider>
+        </SfxProvider>
       </body>
     </html>
   );

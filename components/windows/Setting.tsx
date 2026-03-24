@@ -1,16 +1,28 @@
 import DragWindow from "../DragWindow";
 import Window from "../Window";
 import { GiSoundOn, GiSoundOff } from "react-icons/gi";
-import { useSoundContext } from "@/ultilities/soundProvider";
+import { useSfxContext } from "@/ultilities/sfxProvider";
+import { useMusicContext } from "@/ultilities/musicProvider";
+import { TbReload } from "react-icons/tb";
+import { MdMusicNote, MdMusicOff } from "react-icons/md";
 
 export function SettingWindow(){
-    const { isMuted, toggleMute } = useSoundContext();
+    const { isSfxMuted, toggleSfxMute } = useSfxContext();
+    const { isMusicMuted, toggleMusicMute } = useMusicContext();
     
     return(
         <DragWindow title="Setting.">
-            <div className="flex flex-col items-center justify-center">
-                <SettingButton onClick={toggleMute}>
-                    {isMuted ? <GiSoundOff size={80} /> : <GiSoundOn size={80} />}
+            <div className="flex flex-row gap-2 items-center justify-center">
+                <SettingButton onClick={toggleSfxMute}>
+                    {isSfxMuted ? <GiSoundOff size={50} /> : <GiSoundOn size={50} />}
+                </SettingButton>
+
+                <SettingButton>
+                    <TbReload size={40} />
+                </SettingButton>
+                
+                <SettingButton onClick={toggleMusicMute}>
+                    {isMusicMuted ? <MdMusicOff size={40} /> : <MdMusicNote size={40} />}
                 </SettingButton>
             </div>
         </DragWindow>

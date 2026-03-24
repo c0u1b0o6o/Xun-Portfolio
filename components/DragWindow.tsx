@@ -2,7 +2,7 @@
 import { motion,useDragControls } from "framer-motion";
 import React from "react";
 import { useDesktopConstraints } from "@/ultilities/layoutProvider";
-import { useSoundEffect,SOUNDS } from "@/ultilities/useSoundEffect";
+import { useSoundEffect,SOUNDS } from "@/ultilities/sfxProvider";
 
 export default function DragWindow({ children, title = 'None'}: { children: React.ReactNode; title?: string;}) {
     const dragControls = useDragControls(); // useDragControls is from React's framer-motion, it allows us to control the dragging behavior manually
@@ -27,8 +27,8 @@ export default function DragWindow({ children, title = 'None'}: { children: Reac
             dragControls={dragControls} 
             dragMomentum={true} 
             dragTransition={{
-                power: 0.2,           // 慣性的「推力」：數值越大，放手後滑得越遠 (預設 0.8)
-                timeConstant: 300,    // 減速快慢：數值越小，減速越快，感覺越「重」 (預設 700) // 進階：讓慣性結束時自動吸附到網格
+                power: 0.2,           // more power, more mementum
+                timeConstant: 300,    // time for the momentum to stop
             }}
             dragListener={false} 
             whileDrag={{ zIndex:10 }}
@@ -68,10 +68,12 @@ export default function DragWindow({ children, title = 'None'}: { children: Reac
                 items-center 
                 justify-center
                 w-fit           /* fit the element inside */
-                p-8             /* padding 8 */
+                p-4            /* padding 8 */
                 bg-surface-elevated 
                 rounded-lg
-                shadow-lg"
+                shadow-lg
+                text-center
+                "
                 >
                     {children}
                 </div>
