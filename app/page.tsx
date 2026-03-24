@@ -4,9 +4,10 @@ import { useState } from "react";
 import DotGridBackground from "@/components/DotGridBackground";
 import DragWindow from "@/components/DragWindow";
 import React from "react";
-import { LayoutProvider } from "@/context/layoutContext";
+import { LayoutProvider } from "@/ultilities/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
 import { Contact } from "@/components/windows/Contact";
+import { SettingWindow } from "@/components/windows/Setting";
 
 export default function Home() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
@@ -25,8 +26,8 @@ export default function Home() {
       {/* w-full is fill up the father container's width */}
         <WelcomeWindow/>
         <Contact/>
+        <SettingWindow/>
         </LayoutProvider>
-     
     </main>
   );
 }

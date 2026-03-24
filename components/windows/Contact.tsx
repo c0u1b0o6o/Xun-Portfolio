@@ -70,8 +70,8 @@ function SocialButton({
             className={"flex flex-col items-center justify-center gap-2 p-4 rounded-lg hover:scale-110 transition-transform duration-200"}
             title={name}
         >
-            <Icon className="text-5xl transition-colors duration-200" />
-            <h1 className="text-xs font-4xl text-ink-900 dark:text-gray-200 italic">
+            <Icon className="text-6xl transition-colors duration-200" />
+            <h1 className="font-5xl text-ink-900 dark:text-gray-200 italic">
                 {name}
             </h1>
         </button>

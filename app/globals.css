@@ -12,6 +12,9 @@
   --font-montserrat: "Montserrat", sans-serif;
   --font-jhenghei: "Microsoft JhengHei", "微軟正黑體", sans-serif;
 
+  /* 自定義陰影 */
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+
   /* --- 預設為淺色模式 (Light Mode) 變數 --- */
   --color-surface-base: #f5f5f7;
   --color-surface-elevated: #ffffff;
