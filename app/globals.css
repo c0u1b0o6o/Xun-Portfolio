@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  /* 基礎色盤 (基礎調色，不隨模式改變) */
+  --color-spicy-paprika: #e4572e;
+  --color-tropical-teal: #17bebb;
+  --color-bright-amber: #ffc914;
+  --color-shadow-grey: #2e282a;
+  --color-bright-fern: #76b041;
+
+  /* 字體定義 */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-jhenghei: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+
+  /* --- 預設為淺色模式 (Light Mode) 變數 --- */
+  --color-surface-base: #f5f5f7;
+  --color-surface-elevated: #ffffff;
+  --color-ink-900: #221e1f;
+  --color-ink-700: #51494b;
+  --color-heading: var(--color-shadow-grey);
+}
+
+/* --- 深色模式 (Dark Mode) 覆寫 --- */
+/* 方式 A: 跟隨系統設定 (推薦) */
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-surface-base: #121212;      /* 深背景 */
+    --color-surface-elevated: #1e1e1e;  /* 深色卡片背景 */
+    --color-ink-900: #f5f5f7;           /* 亮文字 */
+    --color-ink-700: #a1a1a6;           /* 次要亮文字 */
+    --color-heading: #ffffff;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-surface-base);
+    color: var(--color-ink-900);
+    font-family: var(--font-mono),var(--font-montserrat), var(--font-jhenghei);
+    transition: background-color 0.3s ease, color 0.3s ease; /* 讓切換更平滑 */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-mono);
+    color: var(--color-heading);
+	font-weight: bold;
+  }
+}
+
+@layer components {
+  .dot-grid-base {
+    background-image: 
+      radial-gradient(var(--color-ink-700) 1px, transparent 2px),
+      radial-gradient(var(--color-ink-700) 1px, transparent 2px);
+    
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+	background-position: 100% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@layer base{
+	.gradient-text {
+		background: linear-gradient(90deg, 
+			var(--color-tropical-teal) 0%,
+			var(--color-bright-amber) 50%,
+			var(--color-tropical-teal) 100%);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: transparent;
+		display: inline-block;
+		animation: gradientShift 6s linear infinite;
+		will-change: background-position;
+	}
+}

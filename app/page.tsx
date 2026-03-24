@@ -1,0 +1,32 @@
+"use client";
+
+import { useState } from "react";
+import DotGridBackground from "@/components/DotGridBackground";
+import DragWindow from "@/components/DragWindow";
+import React from "react";
+import { LayoutProvider } from "@/context/layoutContext";
+import { WelcomeWindow } from "@/components/windows/Welcome";
+import { Contact } from "@/components/windows/Contact";
+
+export default function Home() {
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const constraintsRef = React.useRef<HTMLDivElement>(null);
+  
+  return (
+    <main
+      ref={constraintsRef}
+      className="absolute min-h-screen w-full flex flex-col items-center justify-center p-24"
+    >
+      <LayoutProvider value={constraintsRef}>
+        {/* z-index is -1 here, so it'll be the background */}
+      <DotGridBackground />
+
+      {/* z-index still greater than DotGridBackground */}
+      {/* w-full is fill up the father container's width */}
+        <WelcomeWindow/>
+        <Contact/>
+        </LayoutProvider>
+     
+    </main>
+  );
+}
