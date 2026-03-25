@@ -1,6 +1,5 @@
 'use client';
 import { useState } from "react";
-import  HaloMouse  from "./HaloMouse";
 
 export default function DotGridBackground() {
     return (
