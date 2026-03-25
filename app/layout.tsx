@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono,Montserrat } from "next/font/google";
-import { SfxProvider } from "@/ultilities/sfxProvider";
-import { MusicProvider } from "@/ultilities/musicProvider";
+import { SfxProvider } from "@/providers/sfxProvider";
+import { MusicProvider } from "@/providers/musicProvider";
 
 import "./globals.css";
 

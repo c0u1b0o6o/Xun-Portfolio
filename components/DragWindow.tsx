@@ -1,17 +1,13 @@
 'use client';
-import { motion,useDragControls } from "framer-motion";
+import { motion,scale,useDragControls } from "framer-motion";
 import React from "react";
-import { useDesktopConstraints } from "@/ultilities/layoutProvider";
-import { useSoundEffect,SOUNDS } from "@/ultilities/sfxProvider";
+import { useDesktopConstraints } from "@/providers/layoutProvider";
+import { useSfx } from "@/providers/sfxProvider";
 
 export default function DragWindow({ children, title = 'None'}: { children: React.ReactNode; title?: string;}) {
     const dragControls = useDragControls(); // useDragControls is from React's framer-motion, it allows us to control the dragging behavior manually
-
-    const [isDragging, setIsDragging] = React.useState(false); // custom a isDraggin state to determine whether we are currently dragging, so we can change the cursor and prevent text selection during dragging
-
     const constrainRef = useDesktopConstraints(); // useDesktopConstraints is a from layoutContext, it provides the ref of the container that we want to constrain the dragging within
-    
-    const playClickSound = useSoundEffect(SOUNDS.CLICK, 0.5); // useSoundEffect is a custom hook that we created to play sound effects, it takes the sound source and volume as parameters, and returns a function that can be called to play the sound effect
+    const playClickSfx = useSfx("/sfx/click.wav", 0.5);
     return (
         // drag: make it draggable
         // dragMomentum: disable momentum after dragging
@@ -31,19 +27,16 @@ export default function DragWindow({ children, title = 'None'}: { children: Reac
                 timeConstant: 300,    // time for the momentum to stop
             }}
             dragListener={false} 
-            whileDrag={{ zIndex:10 }}
+            whileDrag={{ zIndex:10 , scale:1.05, transition: { duration: 0.15, ease: "easeOut"}}}
             onDragEnd={() => {
-                setIsDragging(false);
-                playClickSound();
+                playClickSfx(); // play click sound effect when dragging ends
             }}
             onDragStart={() => {
-                setIsDragging(true);
-                playClickSound();
+                playClickSfx(); // play click sound effect when dragging starts
             }}
-            whileHover={{ scale: 1.02 }}
             initial={{ x: 0, y: 0 }}
             dragConstraints={constrainRef || undefined}
-            className="shadow-lg rounded-s-lg select-none"
+            className="shadow-lg transition-shadow duration-200 rounded-lg select-none"
         >  
 
             <div onPointerDown={(e) => dragControls.start(e)} className="relative bg-ink-900 rounded-lg pt-2 px-2 pb-1">

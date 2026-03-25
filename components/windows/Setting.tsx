@@ -1,15 +1,13 @@
 import DragWindow from "../DragWindow";
-import Window from "../Window";
 import { GiSoundOn, GiSoundOff } from "react-icons/gi";
-import { useSfxContext } from "@/ultilities/sfxProvider";
-import { useMusicContext } from "@/ultilities/musicProvider";
+import { useSfxContext } from "@/providers/sfxProvider";
+import { useMusicContext } from "@/providers/musicProvider";
 import { TbReload } from "react-icons/tb";
 import { MdMusicNote, MdMusicOff } from "react-icons/md";
 
 export function SettingWindow(){
     const { isSfxMuted, toggleSfxMute } = useSfxContext();
     const { isMusicMuted, toggleMusicMute } = useMusicContext();
-    
     return(
         <DragWindow title="Setting.">
             <div className="flex flex-row gap-2 items-center justify-center">
@@ -20,7 +18,7 @@ export function SettingWindow(){
                 <SettingButton>
                     <TbReload size={40} />
                 </SettingButton>
-                
+
                 <SettingButton onClick={toggleMusicMute}>
                     {isMusicMuted ? <MdMusicOff size={40} /> : <MdMusicNote size={40} />}
                 </SettingButton>
@@ -29,13 +27,15 @@ export function SettingWindow(){
     )
 }
 
-export function SettingButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void }){
+export function SettingButton({ children, onClick
+    
+ }: { children: React.ReactNode; onClick?: () => void }){
     return (
         <button 
+            className="flex flex-col items-center justify-center gap-2 rounded-lg hover:scale-110 active:scale-95 transition-transform duration-200"
             onClick={onClick}
-            className="flex flex-col items-center justify-center gap-2 rounded-lg hover:scale-110 transition-transform duration-200"
         >
             {children}
         </button>
-    )
+    );
 }

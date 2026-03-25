@@ -13,7 +13,10 @@
   --font-jhenghei: "Microsoft JhengHei", "微軟正黑體", sans-serif;
 
   /* 自定義陰影 */
-  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 0 1px rgba(0, 0, 0, 0.1),    /* 最內層：增加邊界質感 */
+    0 0 10px rgba(0, 0, 0, 0.05),  /* 中間層：平滑過度 */
+    0 0 30px rgba(0, 0, 0, 0.1),   /* 擴散層：環境遮蔽感 */
+    0 0 60px rgba(0, 0, 0, 0.15);  /* 最外層：大範圍柔和感 */
 
   /* --- 預設為淺色模式 (Light Mode) 變數 --- */
   --color-surface-base: #f5f5f7;

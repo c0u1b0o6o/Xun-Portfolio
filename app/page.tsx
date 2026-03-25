@@ -4,7 +4,7 @@ import { useState } from "react";
 import DotGridBackground from "@/components/DotGridBackground";
 import DragWindow from "@/components/DragWindow";
 import React from "react";
-import { LayoutProvider } from "@/ultilities/layoutProvider";
+import { LayoutProvider } from "@/providers/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
 import { Contact } from "@/components/windows/Contact";
 import { SettingWindow } from "@/components/windows/Setting";
