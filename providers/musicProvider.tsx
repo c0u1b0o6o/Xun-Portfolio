@@ -1,9 +1,9 @@
 'use client';
 
-import { MusicContextType, MusicHook } from "@/types/abstract";
+import { MusicContextType } from "@/types/music";
 import React, { useCallback, useContext } from "react";
 import { createContext, useEffect } from "react";
-import { MUSIC_ASSETS } from '../constants/assets';
+import { MUSIC_ASSETS } from '../constants/music';
 
 const defaultValue:MusicContextType = {
     isMusicMuted: true,
@@ -12,7 +12,7 @@ const defaultValue:MusicContextType = {
 };
 
 // Create the Music Abstract Context Type Object.
-const MusicContextObj = createContext<MusicContextType>(defaultValue);
+const MusicContext = createContext<MusicContextType>(defaultValue);
 
 // Create the Music Provider Component, which will provide the music context to its children.
 // useEffect is (()=>{}, [])
@@ -31,10 +31,12 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
     // 2. play the music
     // 3. GC
     useEffect(() => {
+      // FIXME: This save feature is so confused. It'll make defualt not mute, but no music play. So idk what's this for
+      // FIXME: Hey, im right. I dont really need ts, bc i want default all state when reload the page.
       // If have saved the state in localStorage, use it. Otherwise, use the default state(true).
-      const saved = localStorage.getItem('isMusicMuted');
-      if (saved !== null) setIsMusicMuted(JSON.parse(saved));
-      else setIsMusicMuted(true);
+      // const saved = localStorage.getItem('isMusicMuted');
+      // if (saved !== null) setIsMusicMuted(JSON.parse(saved));
+      // else setIsMusicMuted(true);
 
       const audio = new Audio(MUSIC_ASSETS.DELTARUNE_THIRD_SANCTUARY);
       audio.loop = true;
@@ -45,9 +47,9 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
 
       // play done. GC the resource
       return () => {
-          audio.pause();
-          audio.src = ""; // clear the source to release memory
-          audioRef.current = null;
+        audio.pause();
+        audio.src = ""; // clear the source to release memory
+        audioRef.current = null;
       }
     }, []) // only run this time. Goodbye.);
     
@@ -111,9 +113,9 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
       }
      */
     return (
-        <MusicContextObj.Provider value={{ isMusicMuted, toggleMusicMute, audioRef }}>
+        <MusicContext.Provider value={{ isMusicMuted, toggleMusicMute, audioRef }}>
             {children}
-        </MusicContextObj.Provider>
+        </MusicContext.Provider>
     );
 }
 
@@ -129,7 +131,7 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
 
 // Then, we can catch the error when we use the hook outside of the provider, and make it more user-friendly. Nice.
 export const useMusicContext = () =>{
-  const context = useContext(MusicContextObj);
+  const context = useContext(MusicContext);
   if(!context){
     throw new Error("useMusicContext must be used within a MusicProvider");
   }

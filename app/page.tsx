@@ -8,25 +8,24 @@ import { LayoutProvider } from "@/providers/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
 import { Contact } from "@/components/windows/Contact";
 import { SettingWindow } from "@/components/windows/Setting";
+import { useWindowContext } from "@/providers";
 
 export default function Home() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
-  
+  const {windows} = useWindowContext();
   return (
     <main
       ref={constraintsRef}
       className="absolute min-h-screen w-full flex flex-col items-center justify-center p-24"
     >
       <LayoutProvider value={constraintsRef}>
-        {/* z-index is -1 here, so it'll be the background */}
       <DotGridBackground />
 
-      {/* z-index still greater than DotGridBackground */}
-      {/* w-full is fill up the father container's width */}
-        <WelcomeWindow/>
-        <Contact/>
-        <SettingWindow/>
-        </LayoutProvider>
+      {windows["welcome"]?.isOpen && <WelcomeWindow/>}
+      {windows["contact"]?.isOpen && <Contact/>}
+      {windows["setting"]?.isOpen && <SettingWindow/>}
+        
+      </LayoutProvider>
     </main>
   );
 }

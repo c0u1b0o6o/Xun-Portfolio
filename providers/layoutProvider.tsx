@@ -6,7 +6,7 @@ import { createContext, useContext, RefObject } from 'react';
 const LayoutContext = createContext<RefObject<HTMLDivElement | null> | null>(null);
 
 // 建立一個自定義 Hook 方便之後調用
-export const useDesktopConstraints = () => useContext(LayoutContext);
+export const useLayout = () => useContext(LayoutContext);
 
 export function LayoutProvider({ 
   children, 

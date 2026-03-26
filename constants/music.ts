@@ -1,10 +1,6 @@
 /**
- * This file contains the paths to all the assets used in the project. 
+ * This file contains the types for Music Provider and Music Hook.
  */
-export const SFX_ASSETS = {
-    CLICK: "/sfx/click.wav",
-} as const;
-
 export const MUSIC_ASSETS = {
     DELTARUNE_THIRD_SANCTUARY: "/music/DeltaruneThirdSanctuary.mp3",
 } as const;
@@ -29,5 +25,3 @@ export const MUSIC_ASSETS = {
  * Beatiful, isn't it?
  * And I want to take a nap bro :(
  */
-export type SfxAssetPath = typeof SFX_ASSETS[keyof typeof SFX_ASSETS];
-export type MusicAssetPath = typeof MUSIC_ASSETS[keyof typeof MUSIC_ASSETS];

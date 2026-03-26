@@ -38,20 +38,18 @@ const socialLinks = [
 
 export function Contact() {
     return (
-        <div>
-            <DragWindow title="Contact ME.">
-                <div className="flex flex-col gap-4 w-full">
-                    <div className="grid grid-cols-6 gap-3 sm:gap-4">
-                        {socialLinks.map((link) => (
-                            <SocialButton
-                                key={link.name}
-                                {...link}
-                            />
-                        ))}
-                    </div>
+        <DragWindow title="Contact ME." id="contact">
+            <div className="flex flex-col gap-4 w-full">
+                <div className="grid grid-cols-6 gap-3 sm:gap-4">
+                    {socialLinks.map((link) => (
+                        <SocialButton
+                            key={link.name}
+                            {...link}
+                        />
+                    ))}
                 </div>
-            </DragWindow>
-        </div>
+            </div>
+        </DragWindow>
     );
 }
 

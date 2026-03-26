@@ -4,6 +4,7 @@ import { SfxProvider } from "@/providers/sfxProvider";
 import { MusicProvider } from "@/providers/musicProvider";
 
 import "./globals.css";
+import { WindowProvider } from "@/providers";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -38,9 +39,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SfxProvider>
           <MusicProvider>
-            <div className="relative z-10 flex-1">
-              {children}
-            </div>
+            <WindowProvider>
+              <div className="relative z-10 flex-1">
+                {children}
+              </div>
+            </WindowProvider>
           </MusicProvider>
         </SfxProvider>
       </body>

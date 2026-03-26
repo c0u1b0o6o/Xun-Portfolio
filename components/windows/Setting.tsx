@@ -9,7 +9,7 @@ export function SettingWindow(){
     const { isSfxMuted, toggleSfxMute } = useSfxContext();
     const { isMusicMuted, toggleMusicMute } = useMusicContext();
     return(
-        <DragWindow title="Setting.">
+        <DragWindow title="Setting." id="setting">
             <div className="flex flex-row gap-2 items-center justify-center">
                 <SettingButton onClick={toggleSfxMute}>
                     {isSfxMuted ? <GiSoundOff size={50} /> : <GiSoundOn size={50} />}
