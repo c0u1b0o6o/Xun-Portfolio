@@ -11,7 +11,7 @@ export const MUSIC_ASSETS= {
         author: "Toby Fox"
     },
     AURA: { 
-        src: "/music/Aura.mp3",
+        src: "/music/AURA.mp3",
         defaultVolume: 0.3,
         title: "Aura",
         author: "Various Artists"

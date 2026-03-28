@@ -53,10 +53,11 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     audio.loop = true;
     audioRef.current = audio;
 
-    const savedPlayState = localStorage.getItem("isPlaying");
-    if (savedPlayState) {
-      setIsPlaying(JSON.parse(savedPlayState));
-    }
+    // We should not save because when user refresh the page, it still remember the state, when mounted, the play button still might be the play one, not palse one.
+    // const savedPlayState = localStorage.getItem("isPlaying");
+    // if (savedPlayState) {
+    //   setIsPlaying(JSON.parse(savedPlayState));
+    // }
 
     const savedVolume = localStorage.getItem("musicVolume");
     if (savedVolume) {
@@ -104,9 +105,9 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const togglePlayPause = React.useCallback(() => {
     setIsPlaying((prev) => {
       const newState = !prev;
-      /*NOTE: I just ai and maybe it's working like, when user play the music, and want to turn to another tab
-      make this website rebuild, state reset, the music stop. So use localStorage to presist this situation*/
-      localStorage.setItem("isPlaying", JSON.stringify(newState));
+      // /*NOTE: I just ai and maybe it's working like, when user play the music, and want to turn to another tab
+      // make this website rebuild, state reset, the music stop. So use localStorage to presist this situation*/
+      // localStorage.setItem("isPlaying", JSON.stringify(newState));
       return newState;
     });
   }, []);
@@ -138,31 +139,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  // Anyway, you need a provider in ur implementation right? So return it bro.
-  // Now, you can do <blablablaProvider/> in ur tsx. nice.
-  // And the value is the context you want to provide, pass to the children.
-
-  // Ex:
-  // <MusicProvider>
-  //     <MuteButton/>
-  // </MusicProvider>
-
-  // MuteBButton be like:
-  /*
-    export default function MuteButton() {
-
-    const {
-        isMusicMuted,
-        toggleMusicMute
-    } = useMusicContext();
-
-    return (
-        <button onClick={toggleMusicMute}>
-            {isMusicMuted ? "Unmute" : "Mute"}
-        </button>
-        );
-    }
-   */
   return (
     <MusicContext.Provider
       value={{
@@ -182,17 +158,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// This is called "Custom Hook".
-
-// Before:
-// import { useContext } from "react"; import { MusicContextObj } from "@/providers/musicProvider";
-// const { isMusicMuted, toggleMusicMute } = useContext(MusicContextObj);
-
-// After:
-// import { useMusicContext } from "@/providers/musicProvider";
-// const { isMusicMuted, toggleMusicMute } = useMusicContext();
-
-// Then, we can catch the error when we use the hook outside of the provider, and make it more user-friendly. Nice.
 export const useMusicContext = () => {
   const context = useContext(MusicContext);
   if (!context) {

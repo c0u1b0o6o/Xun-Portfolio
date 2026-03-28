@@ -121,7 +121,7 @@ export function DiscordContent() {
     );
 }
 
-export function SocialWindows() {
+export function DetailWindows() {
     return (
         <>
             {/* Discord Window */}
@@ -138,7 +138,7 @@ export function SocialWindows() {
             <DragWindow title="Portfolio." id="portfolio_link">
                 <div className="p-4 w-64">
                     {/* Add your content here */}
-                    <h1 className="text-ink-500 font-mono text-2xl italic">
+                    <h1 className="font-mono text-2xl italic">
                         YOU ARE HERE NOW!
                     </h1>
                 </div>
