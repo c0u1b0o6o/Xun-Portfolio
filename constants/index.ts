@@ -1,3 +1,3 @@
-export type {MusicAssetPath} from '../types/music';
-export type {SfxAssetPath} from '../types/sfx';
-export type {WindowId} from './window';
+export type {MUSIC_ASSETS} from '../constants/music';
+export type {SFX_ASSETS} from '../constants/sfx';
+export type {WINDOW_ID} from './window';

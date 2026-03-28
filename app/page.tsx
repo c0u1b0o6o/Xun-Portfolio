@@ -6,9 +6,10 @@ import DragWindow from "@/components/DragWindow";
 import React from "react";
 import { LayoutProvider } from "@/providers/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
-import { Contact } from "@/components/windows/Contact";
+import { ContactWindow } from "@/components/windows/Contact";
 import { SettingWindow } from "@/components/windows/Setting";
 import { useWindowContext } from "@/providers";
+import { AboutWindow } from "@/components/windows/About";
 
 export default function Home() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
@@ -22,9 +23,9 @@ export default function Home() {
       <DotGridBackground />
 
       {windows["welcome"]?.isOpen && <WelcomeWindow/>}
-      {windows["contact"]?.isOpen && <Contact/>}
+      {windows["contact"]?.isOpen && <ContactWindow/>}
       {windows["setting"]?.isOpen && <SettingWindow/>}
-        
+      {windows['about']?.isOpen && <AboutWindow/>}
       </LayoutProvider>
     </main>
   );

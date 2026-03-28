@@ -1,14 +1,16 @@
 'use client';
 
-import { MusicContextType } from "@/types/music";
+import { MusicContextType, MusicProps } from "@/types/music";
 import React, { useCallback, useContext } from "react";
 import { createContext, useEffect } from "react";
-import { MUSIC_ASSETS } from '../constants/music';
+import { MUSIC_ASSETS, MusicAssetPath } from "@/constants/music";
 
 const defaultValue:MusicContextType = {
     isMusicMuted: true,
     toggleMusicMute: () => {console.warn("toggleMusicMute is not implemented now. pls check.")},
     audioRef: { current: null },
+    currentTrack: MUSIC_ASSETS.BLOOMINGVILLAIN,
+    changeTrack: () => {console.warn("changeTrack is not implemented now. pls check.")},
 };
 
 // Create the Music Abstract Context Type Object.
@@ -24,6 +26,7 @@ const MusicContext = createContext<MusicContextType>(defaultValue);
 export function MusicProvider({ children}: { children: React.ReactNode; }) {
     const [isMusicMuted, setIsMusicMuted] = React.useState(true); // That's what i talk about the state like event bro.
     const [isMounted, setIsMounted] = React.useState(false);
+    const [currentTrack, setCurrentTrack] = React.useState<MusicProps>(MUSIC_ASSETS.BLOOMINGVILLAIN);
     const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
     // ---This useEffect will run once while amounting.---
@@ -31,16 +34,9 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
     // 2. play the music
     // 3. GC
     useEffect(() => {
-      // FIXME: This save feature is so confused. It'll make defualt not mute, but no music play. So idk what's this for
-      // FIXME: Hey, im right. I dont really need ts, bc i want default all state when reload the page.
-      // If have saved the state in localStorage, use it. Otherwise, use the default state(true).
-      // const saved = localStorage.getItem('isMusicMuted');
-      // if (saved !== null) setIsMusicMuted(JSON.parse(saved));
-      // else setIsMusicMuted(true);
-
-      const audio = new Audio(MUSIC_ASSETS.DELTARUNE_THIRD_SANCTUARY);
+      const audio = new Audio(currentTrack.src); // create a new audio element with the src of the music asset.
       audio.loop = true;
-      audio.volume = 0.5; // set the default volume to 50%
+      audio.volume = currentTrack.defaultVolume; // set the default volume to 50%
       audioRef.current = audio; // set the current music
 
       setIsMounted(true); // set mounted . done.
@@ -51,7 +47,8 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
         audio.src = ""; // clear the source to release memory
         audioRef.current = null;
       }
-    }, []) // only run this time. Goodbye.);
+    }, [currentTrack]) // run when currentTrack changes.
+    
     
     // ---This useEffect will rerun when the isMusicMuted state changes.---
     // Ok, you mounted it successfully, then what should u do?
@@ -70,7 +67,7 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
           console.warn("[Music] Auto-play prevented:", e);
         });
       }
-    },[isMusicMuted,isMounted])
+    },[isMusicMuted,isMounted,currentTrack])
 
     // ---This is the function to toggle the music mute state. We Abstracted it before.---
     // 1. set toggle state, if 1 ? 0 : 1. Yeah. You should know what im talkin bout.
@@ -85,6 +82,13 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
             return newState;
         });
     },[])
+
+    // ---This is the function to change the music track.---
+    // Change the current track and keep the music playing state.
+    const changeTrack = React.useCallback((track: MusicProps) => {
+        setCurrentTrack(track);
+    }, []);
+
 
     // Anyway, you need a provider in ur implementation right? So return it bro.
     // Now, you can do <blablablaProvider/> in ur tsx. nice.
@@ -113,7 +117,7 @@ export function MusicProvider({ children}: { children: React.ReactNode; }) {
       }
      */
     return (
-        <MusicContext.Provider value={{ isMusicMuted, toggleMusicMute, audioRef }}>
+        <MusicContext.Provider value={{ isMusicMuted, toggleMusicMute, audioRef, currentTrack, changeTrack }}>
             {children}
         </MusicContext.Provider>
     );

@@ -1,10 +1,8 @@
+import { WINDOW_ID } from "@/constants/window";
+
 /**
  * This file contains the types for Window Provider and Window Context.
  */
-
-import { WindowId } from "@/constants/window";
-
-// Window Basic States
 export interface WindowStates{
     id: WindowId;
     isOpen: boolean;
@@ -19,3 +17,4 @@ export interface WindowContextType{
     toggleWindow: (id: WindowId) => void;
     focusWindow: (id: WindowId) => void; // click to bring it front, update z-index to the highest
 }
+export type WindowId = typeof WINDOW_ID[keyof typeof WINDOW_ID];

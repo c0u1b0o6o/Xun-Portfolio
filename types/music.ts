@@ -1,13 +1,16 @@
-import { MUSIC_ASSETS } from "@/constants/music";
+import { MusicAssetPath } from "@/constants/music";
 import { RefObject } from "react";
 
-/**
- * Music Provider Types
- */
-export interface MusicContextType{
-    isMusicMuted: boolean;
-    toggleMusicMute: () => void;
-    audioRef: RefObject<HTMLAudioElement | null>; // Ref is a reference to the audio element, so we can use the only element like this.
+// 定義最基礎的格式
+export interface MusicProps {
+    src: MusicAssetPath;          
+    defaultVolume: number;
 }
 
-export type MusicAssetPath = typeof MUSIC_ASSETS[keyof typeof MUSIC_ASSETS];
+export interface MusicContextType {
+    isMusicMuted: boolean;
+    toggleMusicMute: () => void;
+    audioRef: RefObject<HTMLAudioElement | null>;
+    currentTrack: MusicProps;
+    changeTrack: (track: MusicProps) => void;
+}

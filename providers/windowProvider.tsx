@@ -1,6 +1,5 @@
 'use client';
-import { WindowId } from "@/constants/window";
-import { WindowContextType, WindowStates as WindowProps } from "@/types/window";
+import { WindowContextType, WindowId, WindowStates as WindowProps } from "@/types/window";
 import React, { useEffect } from "react";
 import { createContext } from "react";
 

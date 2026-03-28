@@ -1,10 +1,24 @@
+import { MusicProps } from "@/types/music";
 /**
  * This file contains the types for Music Provider and Music Hook.
  */
-export const MUSIC_ASSETS = {
-    DELTARUNE_THIRD_SANCTUARY: "/music/DeltaruneThirdSanctuary.mp3",
+
+export const MUSIC_ASSETS= {
+    DELTARUNE_THIRD_SANCTUARY: {
+        src: "/music/DeltaruneThirdSanctuary.mp3",
+        defaultVolume: 0.3
+    },
+    AURA: {
+        src: "/music/Aura.mp3",
+        defaultVolume: 0.3
+    },
+    BLOOMINGVILLAIN:{
+        src: "/music/BloomingVillain.mp3",
+        defaultVolume: 0.2
+    }
 } as const;
 
+export type MusicAssetPath = typeof MUSIC_ASSETS[keyof typeof MUSIC_ASSETS]["src"];
 /**
  * These is 3 steps to get the union of all the path.
  * 

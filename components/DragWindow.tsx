@@ -3,15 +3,16 @@ import { motion, useDragControls } from "framer-motion";
 import React from "react";
 import { useLayout, useSfx, useWindowContext } from "@/providers";
 import { IoCloseOutline } from "react-icons/io5";
-import { WindowId } from '../constants/window';
+import { WindowId } from '../types/window';
 
 interface DragWindowProps {
     children: React.ReactNode;
     title?: string;
     id: WindowId;
+    className?: string;
 }
 
-export default function DragWindow({ children, title = 'None', id}: DragWindowProps) {
+export default function DragWindow({ children, title = 'None', id, className}: DragWindowProps) {
     const dragControls = useDragControls();
     const constrainRef = useLayout(); 
     const playClickSfx = useSfx("/sfx/click.wav", 0.5);
@@ -51,7 +52,7 @@ export default function DragWindow({ children, title = 'None', id}: DragWindowPr
                 setIsMoving(true);
             }}
             dragConstraints={constrainRef || undefined}
-            className="shadow-lg transition-shadow duration-200 rounded-lg select-none"
+            className={`shadow-lg transition-shadow duration-200 rounded-lg select-none ${className || ''}`}
         >
             <div style={{pointerEvents: isMoving ? 'none' : 'auto'}}
                 onPointerDown={(e) => {dragControls.start(e); focusWindow(id);}} 

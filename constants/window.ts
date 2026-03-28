@@ -10,4 +10,3 @@ export const WINDOW_ID ={
     DOCK: "dock",
 } as const;
 
-export type WindowId = typeof WINDOW_ID[keyof typeof WINDOW_ID];

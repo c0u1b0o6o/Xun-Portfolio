@@ -36,7 +36,7 @@ const socialLinks = [
     },
 ];
 
-export function Contact() {
+export function ContactWindow() {
     return (
         <DragWindow title="Contact ME." id="contact">
             <div className="flex flex-col gap-4 w-full">
