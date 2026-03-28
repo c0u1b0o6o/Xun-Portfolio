@@ -10,11 +10,13 @@ export interface MusicProps {
 }
 
 export interface MusicContextType {
-    isMusicMuted: boolean;
-    toggleMusicMute: () => void;
+    isPlaying: boolean;
+    togglePlayPause: () => void;
     audioRef: RefObject<HTMLAudioElement | null>;
     currentTrack: MusicProps;
     changeTrack: (track: MusicProps) => void;
     nextTrack: () => void;
     prevTrack: () => void;
+    musicVolume: number;
+    setMusicVolume: (volume: number) => void;
 }

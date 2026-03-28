@@ -8,5 +8,8 @@ export const WINDOW_ID ={
     CONTACT: "contact",
     SETTING: "setting",
     MUSICPLAYER: "musicplayer",
+    DISCORD: "discord",
+    EMAIL: "email",
+    PORTFOLIO_LINK: "portfolio_link",
 } as const;
 

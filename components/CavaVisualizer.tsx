@@ -23,7 +23,7 @@ export default function CavaVisualizer() {
   const inkColorRef = useRef<string>('#221e1f');
 
 
-  const { isMusicMuted, audioRef } = useMusicContext();
+  const { isPlaying, audioRef } = useMusicContext();
 
   // 1. 處理顏色獲取 (封裝動態顏色邏輯)
   const updateInkColor = useCallback(() => {
@@ -74,7 +74,7 @@ export default function CavaVisualizer() {
     
     ctx.clearRect(0, 0, width, height);
 
-    if (!analyserRef.current || !dataArrayRef.current || isMusicMuted) return;
+    if (!analyserRef.current || !dataArrayRef.current || !isPlaying) return;
 
     const analyser = analyserRef.current;
     const dataArray = dataArrayRef.current;
@@ -114,7 +114,7 @@ export default function CavaVisualizer() {
         barHeight
       );
     }
-  }, [isMusicMuted]);
+  }, [isPlaying]);
 
   // 4. 副作用：生命週期與事件監聽
   useEffect(() => {

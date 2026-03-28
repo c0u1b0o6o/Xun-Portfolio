@@ -12,10 +12,12 @@ import { SettingWindow } from "@/components/windows/Setting";
 import { useWindowContext } from "@/providers";
 import { AboutWindow } from "@/components/windows/About";
 import { MusicPlayerWindow } from "@/components/windows/MusicPlayer";
+import { BlogPreviewWindow } from "@/components/windows/BlogPreview";
+import { SocialWindows } from "@/components/windows/SocialWindows";
 
 export default function Home() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
-  const {windows} = useWindowContext();
+  const { windows } = useWindowContext();
   return (
     <main
       ref={constraintsRef}
@@ -27,7 +29,9 @@ export default function Home() {
         <ContactWindow />
         <SettingWindow />
         <AboutWindow />
-        <MusicPlayerWindow/>
+        <MusicPlayerWindow />
+        <BlogPreviewWindow />
+        <SocialWindows />
       </LayoutProvider>
     </main>
   );

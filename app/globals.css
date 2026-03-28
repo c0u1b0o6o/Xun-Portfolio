@@ -14,10 +14,14 @@
   --font-jhenghei: "Microsoft JhengHei", "微軟正黑體", sans-serif;
 
   /* 自定義陰影 */
-  --shadow-lg: 0 0 1px rgba(0, 0, 0, 0.1),    /* 最內層：增加邊界質感 */
-    0 0 10px rgba(0, 0, 0, 0.05),  /* 中間層：平滑過度 */
-    0 0 30px rgba(0, 0, 0, 0.1),   /* 擴散層：環境遮蔽感 */
-    0 0 60px rgba(0, 0, 0, 0.15);  /* 最外層：大範圍柔和感 */
+  --shadow-lg: 0 0 1px rgba(0, 0, 0, 0.1),
+    /* 最內層：增加邊界質感 */
+    0 0 10px rgba(0, 0, 0, 0.05),
+    /* 中間層：平滑過度 */
+    0 0 30px rgba(0, 0, 0, 0.1),
+    /* 擴散層：環境遮蔽感 */
+    0 0 60px rgba(0, 0, 0, 0.15);
+  /* 最外層：大範圍柔和感 */
 
   /* --- 預設為淺色模式 (Light Mode) 變數 --- */
   --color-surface-base: #f5f5f7;
@@ -31,10 +35,14 @@
 /* 方式 A: 跟隨系統設定 (推薦) */
 @media (prefers-color-scheme: dark) {
   @theme {
-    --color-surface-base: #121212;      /* 深背景 */
-    --color-surface-elevated: #1e1e1e;  /* 深色卡片背景 */
-    --color-ink-900: #f5f5f7;           /* 亮文字 */
-    --color-ink-700: #a1a1a6;           /* 次要亮文字 */
+    --color-surface-base: #121212;
+    /* 深背景 */
+    --color-surface-elevated: #1e1e1e;
+    /* 深色卡片背景 */
+    --color-ink-900: #f5f5f7;
+    /* 亮文字 */
+    --color-ink-700: #a1a1a6;
+    /* 次要亮文字 */
     --color-heading: #ffffff;
   }
 }
@@ -43,30 +51,36 @@
   body {
     background-color: var(--color-surface-base);
     color: var(--color-ink-900);
-    font-family: var(--font-mono),var(--font-montserrat), var(--font-jhenghei);
-    transition: background-color 0.3s ease, color 0.3s ease; /* 讓切換更平滑 */
+    font-family: var(--font-mono), var(--font-montserrat), var(--font-jhenghei);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* 讓切換更平滑 */
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-mono);
     color: var(--color-heading);
-	font-weight: bold;
+    font-weight: bold;
   }
 
-  p{
+  p {
     font-size: var(--text-xl);
   }
 }
 
 @layer components {
   .dot-grid-base {
-    background-image: 
+    background-image:
       radial-gradient(var(--color-ink-700) 1px, transparent 2px),
       radial-gradient(var(--color-ink-700) 1px, transparent 2px);
-    
+
     background-size: 40px 40px;
     background-position: 0 0, 20px 20px;
-    
+
     z-index: 0;
     pointer-events: none;
     opacity: 0.4;
@@ -77,90 +91,96 @@
   0% {
     background-position: 0% center;
   }
+
   50% {
-	background-position: 100% center;
+    background-position: 100% center;
   }
+
   100% {
     background-position: 200% center;
   }
 }
 
-@layer base{
-	.primary-gradient-text {
-		background: linear-gradient(90deg, 
-			var(--color-tropical-teal) 0%,
-			var(--color-bright-amber) 50%,
-			var(--color-tropical-teal) 100%);
-		background-size: 200% auto;
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
-		color: transparent;
-		display: inline-block;
-		animation: gradientShift 6s linear infinite;
-		will-change: background-position;
-	}
+@layer base {
+  .primary-gradient-text {
+    background: linear-gradient(90deg,
+        var(--color-tropical-teal) 0%,
+        var(--color-bright-amber) 50%,
+        var(--color-tropical-teal) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: inline-block;
+    animation: gradientShift 6s linear infinite;
+    will-change: background-position;
+  }
 
   .secondary-gradient-text {
-		background: linear-gradient(90deg, 
-			var(--color-spicy-paprika) 0%,
-			var(--color-white) 50%,
-			var(--color-spicy-paprika) 100%);
-		background-size: 200% auto;
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
-		color: transparent;
-		display: inline-block;
-		animation: gradientShift 6s linear infinite;
-		will-change: background-position;
-	}
+    background: linear-gradient(90deg,
+        var(--color-spicy-paprika) 0%,
+        var(--color-white) 50%,
+        var(--color-spicy-paprika) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: inline-block;
+    animation: gradientShift 6s linear infinite;
+    will-change: background-position;
+  }
 
   @layer base {
-  /* 單行程式碼 (Inline Code) */
-  :not(pre) > code {
-    @apply px-1.5 py-0.5 rounded-md text-sm font-mono;
-    background-color: var(--color-surface-elevated);
-    color: var(--color-spicy-paprika);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    /* 引用你自定義的層次陰影，但縮小比例 */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); 
-  }
 
-  /* 區塊程式碼 (Code Block) */
-  pre {
-    @apply p-4 rounded-xl overflow-x-auto my-6 border;
-    background-color: var(--color-surface-elevated);
-    border-color: rgba(0, 0, 0, 0.05);
-    box-shadow: var(--shadow-lg); /* 使用你定義的大範圍柔和陰影 */
-    position: relative;
-  }
-
-  pre code {
-    @apply font-mono text-[0.925rem] leading-relaxed;
-    color: var(--color-ink-700);
-    background: transparent;
-    padding: 0;
-    border: none;
-    box-shadow: none;
-  }
-
-  /* 深色模式修正 (自動適應) */
-  @media (prefers-color-scheme: dark) {
-    :not(pre) > code {
-      background-color: #2a2a2a; /* 比 base 稍微亮一點點的深色 */
-      border-color: rgba(255, 255, 255, 0.1);
-      color: var(--color-bright-amber); /* 深色模式下用琥珀色更易讀 */
+    /* 單行程式碼 (Inline Code) */
+    :not(pre)>code {
+      @apply px-1.5 py-0.5 rounded-md text-sm font-mono;
+      background-color: var(--color-surface-elevated);
+      color: var(--color-spicy-paprika);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      /* 引用你自定義的層次陰影，但縮小比例 */
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
     }
-    
+
+    /* 區塊程式碼 (Code Block) */
     pre {
-      border-color: rgba(255, 255, 255, 0.05);
-      background-color: #1a1a1a;
+      @apply p-4 rounded-xl overflow-x-auto my-6 border;
+      background-color: var(--color-surface-elevated);
+      border-color: rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-lg);
+      /* 使用你定義的大範圍柔和陰影 */
+      position: relative;
     }
-    
+
     pre code {
-      color: var(--color-ink-900);
+      @apply font-mono text-[0.925rem] leading-relaxed;
+      color: var(--color-ink-700);
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    /* 深色模式修正 (自動適應) */
+    @media (prefers-color-scheme: dark) {
+      :not(pre)>code {
+        background-color: #2a2a2a;
+        /* 比 base 稍微亮一點點的深色 */
+        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--color-bright-amber);
+        /* 深色模式下用琥珀色更易讀 */
+      }
+
+      pre {
+        border-color: rgba(255, 255, 255, 0.05);
+        background-color: #1a1a1a;
+      }
+
+      pre code {
+        color: var(--color-ink-900);
+      }
     }
   }
-}
 }

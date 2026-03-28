@@ -6,6 +6,8 @@ import { SfxAssetPath, SfxContextType } from '@/types/sfx';
 const defaultContext: SfxContextType = {
   isSfxMuted: false,
   toggleSfxMute: () => console.warn('SfxProvider is not wrapped'),
+  sfxVolume: 0.5,
+  setSfxVolume: () => console.warn('SfxProvider is not wrapped'),
 };
 
 const SfxContext = createContext<SfxContextType>(defaultContext);
@@ -13,8 +15,21 @@ const SfxContext = createContext<SfxContextType>(defaultContext);
 export function SfxProvider({ children }: { children: React.ReactNode }) {
   const [isSfxMuted, setIsSfxMuted] = React.useState(false);
   const [isMounted, setIsMounted] = React.useState(false);
+  const [sfxVolume, setSfxVolume] = React.useState(0.5);
 
   useEffect(() => {
+    const savedMute = localStorage.getItem('isSfxMuted');
+    if (savedMute) {
+      setIsSfxMuted(JSON.parse(savedMute));
+    }
+
+    const savedVolume = localStorage.getItem('sfxVolume');
+    if (savedVolume) {
+      setSfxVolume(parseFloat(savedVolume));
+    }else{
+      localStorage.setItem('sfxVolume', JSON.stringify(0.5));
+    }
+
     setIsMounted(true);
   }, []);
 
@@ -26,14 +41,19 @@ export function SfxProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const setSfxVolumeWithPersist = React.useCallback((volume: number) => {
+    setSfxVolume(volume);
+    localStorage.setItem('sfxVolume', JSON.stringify(volume));
+  }, []);
+
   return (
-    <SfxContext.Provider value={{ isSfxMuted, toggleSfxMute }}>
+    <SfxContext.Provider value={{ isSfxMuted, toggleSfxMute, sfxVolume, setSfxVolume: setSfxVolumeWithPersist }}>
       {children}
     </SfxContext.Provider>
   );
 }
 export const useSfx: (src: SfxAssetPath, volume?: number) => () => void = (src: SfxAssetPath, volume = 0.5) => { //FIXME: i will be confuse about the name here.
-  const { isSfxMuted } = useSfxContext();
+  const { isSfxMuted, sfxVolume } = useSfxContext();
 
   return useCallback(() => {
     // if mute do nothing. keep listeing
@@ -41,14 +61,14 @@ export const useSfx: (src: SfxAssetPath, volume?: number) => () => void = (src: 
     
     // play the sfx
     const audio = new Audio(src);
-    audio.volume = volume;
+    audio.volume = volume * sfxVolume;
     audio.play().catch(e => console.warn("[SFX] Play error:", e));
     
     // GC
     audio.onended = () => {
       audio.src = '';
     };
-  }, [src, volume, isSfxMuted]);
+  }, [src, volume, isSfxMuted, sfxVolume]);
 };
 
 export const useSfxContext = () => {

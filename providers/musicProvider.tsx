@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { MusicContextType, MusicProps } from "@/types/music";
 import React, { useContext } from "react";
@@ -6,13 +6,25 @@ import { createContext, useEffect } from "react";
 import { MUSIC_ASSETS } from "@/constants/music";
 
 const defaultValue: MusicContextType = {
-  isMusicMuted: true,
-  toggleMusicMute: () => { console.warn("toggleMusicMute is not implemented now. pls check.") },
+  isPlaying: false,
+  togglePlayPause: () => {
+    console.warn("togglePlayPause is not implemented now. pls check.");
+  },
   audioRef: { current: null },
   currentTrack: MUSIC_ASSETS.CRUSH,
-  changeTrack: () => { console.warn("changeTrack is not implemented now. pls check.") },
-  nextTrack: () => { console.warn("nextTrack is not implemented now. pls check.") },
-  prevTrack: () => { console.warn("prevTrack is not implemented now. pls check.") },
+  changeTrack: () => {
+    console.warn("changeTrack is not implemented now. pls check.");
+  },
+  nextTrack: () => {
+    console.warn("nextTrack is not implemented now. pls check.");
+  },
+  prevTrack: () => {
+    console.warn("prevTrack is not implemented now. pls check.");
+  },
+  musicVolume: 0.5,
+  setMusicVolume: () => {
+    console.warn("setMusicVolume is not implemented now. pls check.");
+  },
 };
 
 // Create the Music Abstract Context Type Object.
@@ -25,10 +37,13 @@ const MusicContext = createContext<MusicContextType>(defaultValue);
 // 1. [], it only run once when the component is mounted.
 // 2. [isMusicMuted], it will run when the component is mounted and when the isMusicMuted state changes.
 // 3. , nothing, you should take care bout it bro. It'll run all the time when anything updated.
-export function MusicProvider({ children }: { children: React.ReactNode; }) {
-  const [isMusicMuted, setIsMusicMuted] = React.useState(true); // That's what i talk about the state like event bro.
+export function MusicProvider({ children }: { children: React.ReactNode }) {
+  const [isPlaying, setIsPlaying] = React.useState(false); // Changed to isPlaying, default false
   const [isMounted, setIsMounted] = React.useState(false);
-  const [currentTrack, setCurrentTrack] = React.useState<MusicProps>(MUSIC_ASSETS.CRUSH);
+  const [currentTrack, setCurrentTrack] = React.useState<MusicProps>(
+    MUSIC_ASSETS.CRUSH,
+  );
+  const [musicVolume, setMusicVolume] = React.useState(0.5);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   // ---This useEffect will run once while amounting.---
@@ -38,52 +53,68 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
     audio.loop = true;
     audioRef.current = audio;
 
+    const savedPlayState = localStorage.getItem("isPlaying");
+    if (savedPlayState) {
+      setIsPlaying(JSON.parse(savedPlayState));
+    }
+
+    const savedVolume = localStorage.getItem("musicVolume");
+    if (savedVolume) {
+      setMusicVolume(parseFloat(savedVolume));
+    } else {
+      localStorage.setItem("musicVolume", JSON.stringify(0.5));
+    }
+
     setIsMounted(true);
 
     return () => {
       audio.pause();
       audio.src = "";
       audioRef.current = null;
-    }
+    };
   }, []); // 只在掛載時執行一次
 
   // ---This useEffect will rerun when the isMusicMuted or currentTrack state changes.---
   useEffect(() => {
-    if (!audioRef.current) return;
+    if (!isMounted) return;
 
     const audio = audioRef.current;
-    
+    if (!audio) return;
+
     // 檢查是否真的換了歌，如果有換歌才更換 src
     if (!audio.src.endsWith(currentTrack.src)) {
-        audio.src = currentTrack.src;
-        audio.load();
+      audio.src = currentTrack.src;
+      audio.load();
     }
-    
-    // 確保音量隨設定更新
-    audio.volume = currentTrack.defaultVolume;
 
-    if (isMusicMuted) {
-      audio.pause();
-    } else {
-      audio.play().catch(e => {
+    // 確保音量隨設定更新
+    audio.volume = currentTrack.defaultVolume * musicVolume;
+
+    if (isPlaying) {
+      audio.play().catch((e) => {
         console.warn("[Music] Auto-play prevented:", e);
       });
+    } else {
+      audio.pause();
     }
-  }, [isMusicMuted, isMounted, currentTrack]);
+  }, [isPlaying, isMounted, currentTrack, musicVolume]);
 
   // ---This is the function to toggle the music mute state. We Abstracted it before.---
   // 1. set toggle state, if 1 ? 0 : 1. Yeah. You should know what im talkin bout.
-  // 2. persist the state in localStorage, so when user refresh the page, it can keep the state. I just want to make it more user-friendly bro.
-  // 3. return the new state.
-  const toggleMusicMute = React.useCallback(() => {
-    setIsMusicMuted((prev) => {
+  const togglePlayPause = React.useCallback(() => {
+    setIsPlaying((prev) => {
       const newState = !prev;
       /*NOTE: I just ai and maybe it's working like, when user play the music, and want to turn to another tab
       make this website rebuild, state reset, the music stop. So use localStorage to presist this situation*/
-      // localStorage.setItem('isMusicMuted', JSON.stringify(newState));
+      localStorage.setItem("isPlaying", JSON.stringify(newState));
       return newState;
     });
-  }, [])
+  }, []);
+
+  const setMusicVolumeWithPersist = React.useCallback((volume: number) => {
+    setMusicVolume(volume);
+    localStorage.setItem("musicVolume", JSON.stringify(volume));
+  }, []);
 
   // ---This is the function to change the music track.---
   // Change the current track and keep the music playing state.
@@ -92,21 +123,20 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
   }, []);
 
   const nextTrack = React.useCallback(() => {
-    setCurrentTrack(prev => {
+    setCurrentTrack((prev) => {
       const tracks = Object.values(MUSIC_ASSETS);
-      const idx = tracks.findIndex(t => t.src === prev.src);
+      const idx = tracks.findIndex((t) => t.src === prev.src);
       return tracks[(idx + 1) % tracks.length];
     });
   }, []);
 
   const prevTrack = React.useCallback(() => {
-    setCurrentTrack(prev => {
+    setCurrentTrack((prev) => {
       const tracks = Object.values(MUSIC_ASSETS);
-      const idx = tracks.findIndex(t => t.src === prev.src);
+      const idx = tracks.findIndex((t) => t.src === prev.src);
       return tracks[(idx - 1 + tracks.length) % tracks.length];
     });
   }, []);
-
 
   // Anyway, you need a provider in ur implementation right? So return it bro.
   // Now, you can do <blablablaProvider/> in ur tsx. nice.
@@ -116,7 +146,6 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
   // <MusicProvider>
   //     <MuteButton/>
   // </MusicProvider>
-
 
   // MuteBButton be like:
   /*
@@ -135,7 +164,19 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
     }
    */
   return (
-    <MusicContext.Provider value={{ isMusicMuted, toggleMusicMute, audioRef, currentTrack, changeTrack, nextTrack, prevTrack }}>
+    <MusicContext.Provider
+      value={{
+        isPlaying,
+        togglePlayPause,
+        audioRef,
+        currentTrack,
+        changeTrack,
+        nextTrack,
+        prevTrack,
+        musicVolume,
+        setMusicVolume: setMusicVolumeWithPersist,
+      }}
+    >
       {children}
     </MusicContext.Provider>
   );

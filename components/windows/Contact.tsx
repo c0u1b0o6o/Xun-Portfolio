@@ -1,76 +1,91 @@
-'use client';
+"use client";
 import DragWindow from "@/components/DragWindow";
-import { RiGithubFill, RiInstagramFill, RiDiscordFill, RiMailFill, RiLinkM, RiGlobalLine } from "react-icons/ri";
+import {
+  RiGithubFill,
+  RiInstagramFill,
+  RiDiscordFill,
+  RiMailFill,
+  RiGlobalLine,
+} from "react-icons/ri";
+import { useWindowContext } from "@/providers/windowProvider";
+import { WINDOW_ID } from "@/constants/window";
 
 const socialLinks = [
-    {
-        name: "GitHub",
-        url: "https://github.com/c0u1b0o6o",
-        icon: RiGithubFill,
-    },
-    {
-        name: "Instagram",
-        url: "https://instagram.com",
-        icon: RiInstagramFill,
-    },
-    {
-        name: "Discord",
-        url: "https://discord.com",
-        icon: RiDiscordFill,
-    },
-    {
-        name: "Email",
-        url: "mailto:cuboomax@gmail.com",
-        icon: RiMailFill,
-    },
-    {
-        name: "Portfolio",
-        url: "https://cubooouo.com",
-        icon: RiGlobalLine,
-    },
-    {
-        name: "Linktree",
-        url: "https://linktree.com",
-        icon: RiLinkM,
-    },
+  {
+    name: "GitHub",
+    url: "https://github.com/c0u1b0o6o",
+    icon: RiGithubFill,
+  },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/mengshin.06",
+    icon: RiInstagramFill,
+  },
+  {
+    name: "Discord",
+    id: WINDOW_ID.DISCORD,
+    icon: RiDiscordFill,
+  },
+  {
+    name: "Email",
+    id: WINDOW_ID.EMAIL,
+    icon: RiMailFill,
+  },
+  {
+    name: "Portfolio",
+    id: WINDOW_ID.PORTFOLIO_LINK,
+    icon: RiGlobalLine,
+  },
 ];
 
 export function ContactWindow() {
-    return (
-        <DragWindow title="Contact ME." id="contact">
-            <div className="flex flex-col gap-4 w-full">
-                <div className="grid grid-cols-6 gap-3 sm:gap-4">
-                    {socialLinks.map((link) => (
-                        <SocialButton
-                            key={link.name}
-                            {...link}
-                        />
-                    ))}
-                </div>
-            </div>
-        </DragWindow>
-    );
+  const { toggleWindow } = useWindowContext();
+
+  return (
+    <DragWindow title="Contact ME." id="contact">
+      <div className="flex flex-col w-full">
+        <div className="grid grid-cols-5 sm:gap-4">
+          {socialLinks.map((link) => (
+            <SocialButton
+              key={link.name}
+              name={link.name}
+              icon={link.icon}
+              onClick={() => {
+                if ('url' in link) {
+                  window.open(link.url, "_blank");
+                } else {
+                  toggleWindow(link.id);
+                }
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </DragWindow>
+  );
 }
 
-function SocialButton({ 
-    name, 
-    url, 
-    icon: Icon, 
-}: { 
-    name: string; 
-    url: string; 
-    icon: React.ComponentType<{ className?: string; size?: number }>; 
+function SocialButton({
+  name,
+  icon: Icon,
+  onClick,
+}: {
+  name: string;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
+  onClick?: () => void;
 }) {
-    return (
-        <button
-            onClick={() => window.open(url)}
-            className={"flex flex-col items-center justify-center gap-2 p-4 rounded-lg hover:scale-110 transition-transform duration-200"}
-            title={name}
-        >
-            <Icon className="text-6xl transition-colors duration-200" />
-            <h1 className="font-5xl text-ink-900 dark:text-gray-200 italic">
-                {name}
-            </h1>
-        </button>
-    );
+  return (
+    <button
+      onClick={onClick}
+      className={
+        "flex flex-col items-center justify-center gap-2 p-4 rounded-lg hover:scale-110 transition-transform duration-200"
+      }
+      title={name}
+    >
+      <Icon className="text-6xl transition-colors duration-200" />
+      <h1 className="font-ex-thin text-ink-900 dark:text-gray-200 italic leading-none">
+        {name}
+      </h1>
+    </button>
+  );
 }
