@@ -1,5 +1,5 @@
 'use client';
-import { motion, useDragControls } from "framer-motion";
+import { motion, useDragControls, AnimatePresence } from "framer-motion";
 import React from "react";
 import { useLayout, useSfx, useWindowContext } from "@/providers";
 import { IoCloseOutline } from "react-icons/io5";
@@ -16,6 +16,8 @@ export default function DragWindow({ children, title = 'None', id, className}: D
     const dragControls = useDragControls();
     const constrainRef = useLayout(); 
     const playClickSfx = useSfx("/sfx/click.wav", 0.5);
+    
+    const [isDraggin, setIsDraggin] = React.useState(false);
 
     const { toggleWindow,focusWindow} = useWindowContext();
     const windowState = useWindowContext().windows[id];;
@@ -25,10 +27,13 @@ export default function DragWindow({ children, title = 'None', id, className}: D
         playClickSfx();
     };
 
-    const [isMoving , setIsMoving] = React.useState(false);
-
     return (
-        <motion.div
+        <AnimatePresence>
+            {windowState?.isOpen && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => focusWindow(id)}
             style={{zIndex: windowState.z}}
             drag
@@ -44,17 +49,18 @@ export default function DragWindow({ children, title = 'None', id, className}: D
                 transition: { duration: 0.15, ease: "easeOut" }, 
             }}
             onDragEnd={() => {
+                setIsDraggin(false);
                 playClickSfx(); 
-                setIsMoving(false);   
             }}
             onDragStart={() => {
+                setIsDraggin(true);
                 playClickSfx(); 
-                setIsMoving(true);
             }}
             dragConstraints={constrainRef || undefined}
             className={`shadow-lg transition-shadow duration-200 rounded-lg select-none ${className || ''}`}
-        >
-            <div style={{pointerEvents: isMoving ? 'none' : 'auto'}}
+            
+       >
+            <div style={{pointerEvents: isDraggin ? 'none' : 'auto'}}
                 onPointerDown={(e) => {dragControls.start(e); focusWindow(id);}} 
                 className="relative bg-ink-900 rounded-lg pt-2 px-2 pb-1"
             >
@@ -71,7 +77,9 @@ export default function DragWindow({ children, title = 'None', id, className}: D
                     {children}
                 </div>
             </div>
-        </motion.div>
+            </motion.div>
+            )}
+        </AnimatePresence>
     )
 }
 

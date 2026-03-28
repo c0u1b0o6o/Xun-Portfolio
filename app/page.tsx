@@ -4,6 +4,7 @@ import { useState } from "react";
 import DotGridBackground from "@/components/DotGridBackground";
 import DragWindow from "@/components/DragWindow";
 import React from "react";
+import { AnimatePresence } from "framer-motion";
 import { LayoutProvider } from "@/providers/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
 import { ContactWindow } from "@/components/windows/Contact";
@@ -20,12 +21,12 @@ export default function Home() {
       className="absolute min-h-screen w-full flex flex-col items-center justify-center p-24"
     >
       <LayoutProvider value={constraintsRef}>
-      <DotGridBackground />
+        <DotGridBackground />
 
-      {windows["welcome"]?.isOpen && <WelcomeWindow/>}
-      {windows["contact"]?.isOpen && <ContactWindow/>}
-      {windows["setting"]?.isOpen && <SettingWindow/>}
-      {windows['about']?.isOpen && <AboutWindow/>}
+        <WelcomeWindow />
+        <ContactWindow />
+        <SettingWindow />
+        <AboutWindow />
       </LayoutProvider>
     </main>
   );

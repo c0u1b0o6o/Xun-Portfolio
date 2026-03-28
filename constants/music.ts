@@ -8,7 +8,7 @@ export const MUSIC_ASSETS= {
         src: "/music/DeltaruneThirdSanctuary.mp3",
         defaultVolume: 0.3
     },
-    AURA: {
+    AURA: { 
         src: "/music/Aura.mp3",
         defaultVolume: 0.3
     },

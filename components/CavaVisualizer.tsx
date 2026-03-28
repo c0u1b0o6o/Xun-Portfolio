@@ -22,7 +22,7 @@ export default function CavaVisualizer() {
   const animFrameRef = useRef<number>(0);
   const inkColorRef = useRef<string>('#221e1f');
 
-  
+
   const { isMusicMuted, audioRef } = useMusicContext();
 
   // 1. 處理顏色獲取 (封裝動態顏色邏輯)
@@ -175,7 +175,7 @@ export default function CavaVisualizer() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-screen z-0 pointer-events-none mt-4"
+      className="selece-none fixed inset-0 w-full h-screen z-0 pointer-events-none mt-4"
       style={{ touchAction: 'none' }}
     />
   );

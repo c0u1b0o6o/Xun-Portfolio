@@ -45,13 +45,14 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     // But this is hard as hell i think. so...
 
     const toggleWindow = (id: WindowId) => {
-        setWindows(prev => {
-            const allWindows = {...prev};
-            const targetWindow = allWindows[id];
-            targetWindow.isOpen = !targetWindow.isOpen; // toggle the isOpen state
-            return allWindows;
-        });
-    }   
+        setWindows(prev => ({
+            ...prev,
+            [id]: {
+                ...prev[id],
+                isOpen: !prev[id].isOpen
+            }
+        }));
+    };
 
     const updatePosition = (id: WindowId, newX: number, newY: number) => {
         setWindows(prev => ({
