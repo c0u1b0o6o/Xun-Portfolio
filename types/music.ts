@@ -5,6 +5,8 @@ import { RefObject } from "react";
 export interface MusicProps {
     src: MusicAssetPath;          
     defaultVolume: number;
+    title: string;
+    author: string;
 }
 
 export interface MusicContextType {
@@ -13,4 +15,6 @@ export interface MusicContextType {
     audioRef: RefObject<HTMLAudioElement | null>;
     currentTrack: MusicProps;
     changeTrack: (track: MusicProps) => void;
+    nextTrack: () => void;
+    prevTrack: () => void;
 }

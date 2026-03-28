@@ -6,19 +6,27 @@ import { MusicProps } from "@/types/music";
 export const MUSIC_ASSETS= {
     DELTARUNE_THIRD_SANCTUARY: {
         src: "/music/DeltaruneThirdSanctuary.mp3",
-        defaultVolume: 0.3
+        defaultVolume: 0.3,
+        title: "Third Sanctuary",
+        author: "Toby Fox"
     },
     AURA: { 
         src: "/music/Aura.mp3",
-        defaultVolume: 0.3
+        defaultVolume: 0.3,
+        title: "Aura",
+        author: "Various Artists"
     },
     BLOOMINGVILLAIN:{
         src: "/music/BloomingVillain.mp3",
-        defaultVolume: 0.2
+        defaultVolume: 0.2,
+        title: "Blooming Villain",
+        author: "Shoji Meguro"
     },
     CRUSH:{
         src: "/music/PendulumCrush.mp3",
-        defaultVolume: 0.3
+        defaultVolume: 0.3,
+        title: "Crush",
+        author: "Pendulum"
     }
 } as const;
 

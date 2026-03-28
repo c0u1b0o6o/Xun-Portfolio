@@ -1,28 +1,27 @@
 'use client';
 import DragWindow from "@/components/DragWindow";
-import { FaGithub, FaInstagram, FaDiscord, FaEnvelope, FaLink } from "react-icons/fa";
-import { RiGlobalLine } from "react-icons/ri";
+import { RiGithubFill, RiInstagramFill, RiDiscordFill, RiMailFill, RiLinkM, RiGlobalLine } from "react-icons/ri";
 
 const socialLinks = [
     {
         name: "GitHub",
         url: "https://github.com/c0u1b0o6o",
-        icon: FaGithub,
+        icon: RiGithubFill,
     },
     {
         name: "Instagram",
         url: "https://instagram.com",
-        icon: FaInstagram,
+        icon: RiInstagramFill,
     },
     {
         name: "Discord",
         url: "https://discord.com",
-        icon: FaDiscord,
+        icon: RiDiscordFill,
     },
     {
         name: "Email",
         url: "mailto:cuboomax@gmail.com",
-        icon: FaEnvelope,
+        icon: RiMailFill,
     },
     {
         name: "Portfolio",
@@ -32,7 +31,7 @@ const socialLinks = [
     {
         name: "Linktree",
         url: "https://linktree.com",
-        icon: FaLink,
+        icon: RiLinkM,
     },
 ];
 

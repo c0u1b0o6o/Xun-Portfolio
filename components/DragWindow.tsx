@@ -1,8 +1,8 @@
 'use client';
 import { motion, useDragControls, AnimatePresence, useMotionValue } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import { useLayout, useSfx, useWindowContext } from "@/providers";
-import { IoCloseOutline } from "react-icons/io5";
+import { RiCloseLine } from "react-icons/ri";
 import { WindowId } from '../types/window';
 
 interface DragWindowProps {
@@ -26,6 +26,12 @@ export default function DragWindow({ children, title = 'None', id, className}: D
         toggleWindow(id);
         playClickSfx();
     };
+
+    useEffect(() => {
+        if(windowState?.isOpen) {
+            focusWindow(id);
+        }
+    }, [windowState?.isOpen]);
 
     return (
         <AnimatePresence>
@@ -93,7 +99,7 @@ export function CloseButton({ onClick }: { onClick: () => void }) {
             className="hover:scale-120"
             onClick={onClick}
         >
-            <IoCloseOutline className="mb-1 text-surface-base text-3xl" />
+            <RiCloseLine className="mb-1 text-surface-base text-3xl" />
         </button>
     );
 }

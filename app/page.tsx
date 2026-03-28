@@ -11,6 +11,7 @@ import { ContactWindow } from "@/components/windows/Contact";
 import { SettingWindow } from "@/components/windows/Setting";
 import { useWindowContext } from "@/providers";
 import { AboutWindow } from "@/components/windows/About";
+import { MusicPlayerWindow } from "@/components/windows/MusicPlayer";
 
 export default function Home() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
@@ -26,6 +27,7 @@ export default function Home() {
         <ContactWindow />
         <SettingWindow />
         <AboutWindow />
+        <MusicPlayerWindow/>
       </LayoutProvider>
     </main>
   );

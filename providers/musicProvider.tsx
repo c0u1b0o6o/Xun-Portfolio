@@ -11,6 +11,8 @@ const defaultValue: MusicContextType = {
   audioRef: { current: null },
   currentTrack: MUSIC_ASSETS.CRUSH,
   changeTrack: () => { console.warn("changeTrack is not implemented now. pls check.") },
+  nextTrack: () => { console.warn("nextTrack is not implemented now. pls check.") },
+  prevTrack: () => { console.warn("prevTrack is not implemented now. pls check.") },
 };
 
 // Create the Music Abstract Context Type Object.
@@ -30,44 +32,44 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   // ---This useEffect will run once while amounting.---
-  // 1. set the default info
-  // 2. play the music
-  // 3. GC
+  // 初始化單一 Audio 實例以確保 CavaVisualizer 連線不會因為換歌被切斷
   useEffect(() => {
-    const audio = new Audio(currentTrack.src); // create a new audio element with the src of the music asset.
+    const audio = new Audio();
     audio.loop = true;
-    audio.volume = currentTrack.defaultVolume; // set the default volume to 50%
-    audioRef.current = audio; // set the current music
+    audioRef.current = audio;
 
-    setIsMounted(true); // set mounted . done.
+    setIsMounted(true);
 
-    // play done. GC the resource
     return () => {
       audio.pause();
-      audio.src = ""; // clear the source to release memory
+      audio.src = "";
       audioRef.current = null;
     }
-  }, [currentTrack]) // run when currentTrack changes.
+  }, []); // 只在掛載時執行一次
 
-
-  // ---This useEffect will rerun when the isMusicMuted state changes.---
-  // Ok, you mounted it successfully, then what should u do?
-  // we need to keep listen the event(state), and do something.
+  // ---This useEffect will rerun when the isMusicMuted or currentTrack state changes.---
   useEffect(() => {
-    // Conditon1: Music is muted or current is null, then do nothing. Dont play it.
-    if (!audioRef.current)
-      return;
+    if (!audioRef.current) return;
 
-    // Condition 2a: Music is muted, pause it.
-    // Condition 2b: Music is not muted, play it. If catch any error, just log it.
+    const audio = audioRef.current;
+    
+    // 檢查是否真的換了歌，如果有換歌才更換 src
+    if (!audio.src.endsWith(currentTrack.src)) {
+        audio.src = currentTrack.src;
+        audio.load();
+    }
+    
+    // 確保音量隨設定更新
+    audio.volume = currentTrack.defaultVolume;
+
     if (isMusicMuted) {
-      audioRef.current.pause();
+      audio.pause();
     } else {
-      audioRef.current.play().catch(e => {
+      audio.play().catch(e => {
         console.warn("[Music] Auto-play prevented:", e);
       });
     }
-  }, [isMusicMuted, isMounted, currentTrack])
+  }, [isMusicMuted, isMounted, currentTrack]);
 
   // ---This is the function to toggle the music mute state. We Abstracted it before.---
   // 1. set toggle state, if 1 ? 0 : 1. Yeah. You should know what im talkin bout.
@@ -87,6 +89,22 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
   // Change the current track and keep the music playing state.
   const changeTrack = React.useCallback((track: MusicProps) => {
     setCurrentTrack(track);
+  }, []);
+
+  const nextTrack = React.useCallback(() => {
+    setCurrentTrack(prev => {
+      const tracks = Object.values(MUSIC_ASSETS);
+      const idx = tracks.findIndex(t => t.src === prev.src);
+      return tracks[(idx + 1) % tracks.length];
+    });
+  }, []);
+
+  const prevTrack = React.useCallback(() => {
+    setCurrentTrack(prev => {
+      const tracks = Object.values(MUSIC_ASSETS);
+      const idx = tracks.findIndex(t => t.src === prev.src);
+      return tracks[(idx - 1 + tracks.length) % tracks.length];
+    });
   }, []);
 
 
@@ -117,7 +135,7 @@ export function MusicProvider({ children }: { children: React.ReactNode; }) {
     }
    */
   return (
-    <MusicContext.Provider value={{ isMusicMuted, toggleMusicMute, audioRef, currentTrack, changeTrack }}>
+    <MusicContext.Provider value={{ isMusicMuted, toggleMusicMute, audioRef, currentTrack, changeTrack, nextTrack, prevTrack }}>
       {children}
     </MusicContext.Provider>
   );

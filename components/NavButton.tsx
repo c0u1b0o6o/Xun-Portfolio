@@ -13,7 +13,7 @@ export function NavButton({ icon: Icon, title, onClick }: NavButtonProps) {
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="flex flex-col items-center flex-auto p-4"
+      className="flex flex-col items-center flex-auto py-4"
     >
       {/* Icon 區域 */}
       <Icon className="text-4xl mb-2" />

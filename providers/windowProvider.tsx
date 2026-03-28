@@ -12,7 +12,7 @@ const DEFAULT_WINDOWS_STATES: Record<WindowId, WindowProps> = {
     contact: { id: 'contact', isOpen: false, x: 50, y: 150, z: 10 },
     blog: { id: 'blog', isOpen: false, x: 400, y: 250, z: 10 },
     about: { id: 'about', isOpen: false, x: 500, y: 300, z: 10 },
-    dock: { id: 'dock', isOpen: false, x: 0, y: 0, z: 10 },
+    musicplayer: { id: 'musicplayer', isOpen: true, x: 0, y: 0, z: 10 },
 };
 
 export function WindowProvider({ children }: { children: React.ReactNode }) {
@@ -42,6 +42,10 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     //     }));
     // }
     // But this is hard as hell i think. so...
+
+    const resetWindows = () => {
+        setWindows(DEFAULT_WINDOWS_STATES);
+    }
 
     const toggleWindow = (id: WindowId) => {
         setWindows(prev => ({
@@ -75,7 +79,7 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <WindowContext.Provider value={{ windows, toggleWindow, focusWindow, updatePosition }}>
+        <WindowContext.Provider value={{ windows, toggleWindow, focusWindow, updatePosition,resetWindows }}>
             {children}
         </WindowContext.Provider>
     );

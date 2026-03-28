@@ -7,6 +7,6 @@ export const WINDOW_ID ={
     BLOG: "blog",
     CONTACT: "contact",
     SETTING: "setting",
-    DOCK: "dock",
+    MUSICPLAYER: "musicplayer",
 } as const;
 

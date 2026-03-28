@@ -1,7 +1,5 @@
 import DragWindow from "../DragWindow";
-import { BsFillInfoCircleFill } from "react-icons/bs";
-import { IoCall } from "react-icons/io5";
-import { IoMdSettings } from "react-icons/io";
+import { RiBallPenFill, RiInformationFill, RiMusicAiFill, RiPhoneFill, RiSettings3Fill } from "react-icons/ri";
 import { NavButton } from "../NavButton";
 import { useSfx, useWindowContext } from "@/providers";
 import { WindowId } from "@/types/window";
@@ -26,11 +24,13 @@ export function WelcomeWindow(){
             <h1 className="w-full font-mono font-display font-normal text-2xl">
               You can take a look!
             </h1>
-          <div className="mt-2 w-full flex items-center justify-center gap-4">
+          <div className="mt-4 w-full grid grid-cols-5 items-center justify-center gap-2">
             {/* I need some navbutton, icon is above and title below */}
-            <NavButton icon={BsFillInfoCircleFill} title="about" onClick={handleOnClick("about")} />
-            <NavButton icon={IoCall} title="contact" onClick={handleOnClick("contact")} />
-            <NavButton icon={IoMdSettings} title="setting" onClick={handleOnClick("setting")} />
+            <NavButton icon={RiInformationFill} title="about" onClick={handleOnClick("about")} />
+            <NavButton icon={RiPhoneFill} title="contact" onClick={handleOnClick("contact")} />
+            <NavButton icon={RiSettings3Fill} title="setting" onClick={handleOnClick("setting")} />
+            <NavButton icon={RiMusicAiFill} title="player" onClick={handleOnClick("musicplayer")} />
+            <NavButton icon={RiBallPenFill} title="blog" onClick={handleOnClick("blog")} />
           </div>
         </div>
       </DragWindow>
