@@ -15,6 +15,7 @@ export interface WindowStates{
 export interface WindowContextType{
     windows: Record<WindowId, WindowStates>;
     toggleWindow: (id: WindowId) => void;
+    updatePosition: (id: WindowId, newX: number, newY: number) => void;
     focusWindow: (id: WindowId) => void; // click to bring it front, update z-index to the highest
 }
 export type WindowId = typeof WINDOW_ID[keyof typeof WINDOW_ID];

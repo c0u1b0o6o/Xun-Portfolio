@@ -15,6 +15,10 @@ export const MUSIC_ASSETS= {
     BLOOMINGVILLAIN:{
         src: "/music/BloomingVillain.mp3",
         defaultVolume: 0.2
+    },
+    CRUSH:{
+        src: "/music/PendulumCrush.mp3",
+        defaultVolume: 0.3
     }
 } as const;
 

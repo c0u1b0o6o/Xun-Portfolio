@@ -8,16 +8,15 @@ const WindowContext = createContext<WindowContextType | null>(null);
 // 預設各視窗的初始位置
 const DEFAULT_WINDOWS_STATES: Record<WindowId, WindowProps> = {
     welcome: { id: 'welcome', isOpen: true, x: 0, y: 0, z: 10 }, // we dont need this
-    setting: { id: 'setting', isOpen: true, x: 200, y: 100, z: 10 },
-    contact: { id: 'contact', isOpen: true, x: 50, y: 150, z: 10 },
-    blog: { id: 'blog', isOpen: true, x: 400, y: 250, z: 10 },
-    about: { id: 'about', isOpen: true, x: 500, y: 300, z: 10 },
-    dock: { id: 'dock', isOpen: true, x: 0, y: 0, z: 10 },
+    setting: { id: 'setting', isOpen: false, x: 200, y: 100, z: 10 },
+    contact: { id: 'contact', isOpen: false, x: 50, y: 150, z: 10 },
+    blog: { id: 'blog', isOpen: false, x: 400, y: 250, z: 10 },
+    about: { id: 'about', isOpen: false, x: 500, y: 300, z: 10 },
+    dock: { id: 'dock', isOpen: false, x: 0, y: 0, z: 10 },
 };
 
 export function WindowProvider({ children }: { children: React.ReactNode }) {
     const [windows, setWindows] = React.useState<Record<WindowId, WindowProps>>(DEFAULT_WINDOWS_STATES);
-    const [maxZ, setMaxZ] = React.useState(15); // track the current max z-index to ensure focused window is always on top.
     const [isMounted, setIsMounted] = React.useState(false);
 
     useEffect(() => {
@@ -65,18 +64,18 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
         }));
     }
 
-const focusWindow = (id: WindowId) => {
-    setWindows(prev => {
-        const currentMaxZ = Math.max(...Object.values(prev).map(w => w.z), 0);
-        return {
-            ...prev,
-            [id]: { ...prev[id], z: currentMaxZ + 1 }
-        };
-    });
-};
+    const focusWindow = (id: WindowId) => {
+        setWindows(prev => {
+            const currentMaxZ = Math.max(...Object.values(prev).map(w => w.z), 0);
+            return {
+                ...prev,
+                [id]: { ...prev[id], z: currentMaxZ + 1 }
+            };
+        });
+    };
 
     return (
-        <WindowContext.Provider value={{ windows, toggleWindow, focusWindow }}>
+        <WindowContext.Provider value={{ windows, toggleWindow, focusWindow, updatePosition }}>
             {children}
         </WindowContext.Provider>
     );

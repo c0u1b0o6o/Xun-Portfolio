@@ -22,7 +22,6 @@ export default function Home() {
     >
       <LayoutProvider value={constraintsRef}>
         <DotGridBackground />
-
         <WelcomeWindow />
         <ContactWindow />
         <SettingWindow />

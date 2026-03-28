@@ -8,7 +8,7 @@ const CONFIG = {
   BAR_COUNT: 32,
   BAR_WIDTH_RATIO: 0.75,
   SMOOTHING: 0.85,
-  MAX_HEIGHT_RATIO: 0.75, // 最大佔比限制
+  MAX_HEIGHT_RATIO: 0.70, // 最大佔比限制
   AMP_FACTOR: 1.35,       // 高度放大係數
   FFT_SIZE: 64,           // BAR_COUNT * 2
 };
@@ -95,7 +95,7 @@ export default function CavaVisualizer() {
 
       // 計算高度
       const normalized = (smoothedDataRef.current[i] / 255) * CONFIG.AMP_FACTOR;
-      const constrainedHeight = Math.min(normalized * CONFIG.MAX_HEIGHT_RATIO, 0.9);
+      const constrainedHeight = Math.min(normalized * CONFIG.MAX_HEIGHT_RATIO, 1);
       const barHeight = Math.max(constrainedHeight * height, 2);
 
       // 繪製左半部 (從左向中心)

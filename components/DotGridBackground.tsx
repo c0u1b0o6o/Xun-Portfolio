@@ -1,5 +1,4 @@
 'use client';
-import { useState } from "react";
 import CavaVisualizer from "./CavaVisualizer";
 
 export default function DotGridBackground() {
