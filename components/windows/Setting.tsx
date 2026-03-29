@@ -8,9 +8,10 @@ import { useSfx, useSfxContext } from "@/providers/sfxProvider";
 import { useWindowContext } from "@/providers/windowProvider";
 import { useMusicContext } from "@/providers/musicProvider";
 import { RangeSlider } from "@/components/RangeSlider";
+import { SFX_ASSETS } from "@/constants/sfx";
 
 export function SettingWindow() {
-  const { isSfxMuted, sfxVolume, setSfxVolume } = useSfxContext();
+  const { isSfxMuted, sfxVolume, setSfxVolume, mutedSfx, toggleSfxMuteByPath } = useSfxContext();
   const { isPlaying, musicVolume, setMusicVolume } = useMusicContext();
   const { resetWindows } = useWindowContext();
   const playPipeSfx = useSfx("/sfx/mental_pipe.mp3", 0.1);
@@ -24,7 +25,7 @@ export function SettingWindow() {
           label={
             <span className="flex items-center gap-2">
               <MdMusicNote size={18} />
-              <h1>BGM</h1>
+              <p className="text-lg font-mono">bgm</p>
             </span>
           }
           stopPropagation
@@ -37,11 +38,27 @@ export function SettingWindow() {
           label={
             <span className="flex items-center gap-2">
               <RiVolumeUpFill size={18} />
-              <h1>SFX</h1>
+              <p className="text-lg font-mono">sfx</p>
             </span>
           }
           stopPropagation
         />
+
+        {/* Individual SFX Mute Controls */}
+        <h1 className="text-2xl font-bold">Mute Effects</h1>
+          <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
+            {Object.entries(SFX_ASSETS).map(([key, path]) => (
+              <div key={key} className="flex items-center gap-3 justify-between">
+                <span className="text-sm">{key}</span>
+                <input
+                  type="checkbox"
+                  checked={(mutedSfx ?? {})[path] ?? false}
+                  onChange={() => toggleSfxMuteByPath(path as any)}
+                  className="w-4 h-4 cursor-pointer"
+                />
+              </div>
+            ))}
+          </div>
 
         {/* Reset Action */}
         <button

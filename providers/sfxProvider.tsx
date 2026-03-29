@@ -10,6 +10,8 @@ const defaultContext: SfxContextType = {
   toggleSfxMute: () => console.warn('SfxProvider is not wrapped'),
   sfxVolume: UI_CONSTANTS.DEFAULT_VOLUME,
   setSfxVolume: () => console.warn('SfxProvider is not wrapped'),
+  mutedSfx: {},
+  toggleSfxMuteByPath: () => console.warn('SfxProvider is not wrapped'),
 };
 
 const SfxContext = createContext<SfxContextType>(defaultContext);
@@ -31,6 +33,11 @@ export function SfxProvider({ children }: { children: React.ReactNode }) {
     { initialValue: UI_CONSTANTS.DEFAULT_VOLUME }
   );
 
+  const { value: mutedSfx, setValue: setMutedSfx } = useLocalStorage<Record<string, boolean>>(
+    'mutedSfx',
+    { initialValue: {} }
+  );
+
   const toggleSfxMute = useCallback(() => {
     setIsSfxMuted((prev) => !(prev ?? false));
   }, [setIsSfxMuted]);
@@ -39,8 +46,15 @@ export function SfxProvider({ children }: { children: React.ReactNode }) {
     setSfxVolume(volume);
   }, [setSfxVolume]);
 
+  const toggleSfxMuteByPath = useCallback((path: string) => {
+    setMutedSfx((prev) => ({
+      ...(prev ?? {}),
+      [path]: !((prev ?? {})[path] ?? false),
+    }));
+  }, [setMutedSfx]);
+
   return (
-    <SfxContext.Provider value={{ isSfxMuted: isSfxMuted ?? false, toggleSfxMute, sfxVolume: sfxVolume ?? UI_CONSTANTS.DEFAULT_VOLUME, setSfxVolume: setSfxVolumeWithPersist }}>
+    <SfxContext.Provider value={{ isSfxMuted: isSfxMuted ?? false, toggleSfxMute, sfxVolume: sfxVolume ?? UI_CONSTANTS.DEFAULT_VOLUME, setSfxVolume: setSfxVolumeWithPersist, mutedSfx: mutedSfx ?? {}, toggleSfxMuteByPath }}>
       {children}
     </SfxContext.Provider>
   );
@@ -74,11 +88,11 @@ export function SfxProvider({ children }: { children: React.ReactNode }) {
  * <div onClick={playLoud}>音量較大的通知音</div>
  */
 export const useSfx = (src: SfxAssetPath, volume: number = UI_CONSTANTS.DEFAULT_VOLUME): (() => void) => {
-  const { isSfxMuted, sfxVolume } = useSfxContext();
+  const { isSfxMuted, sfxVolume, mutedSfx } = useSfxContext();
 
   return useCallback(() => {
-    // 如果靜音，不播放
-    if (isSfxMuted) return;
+    // 如果全局靜音或該音效被屏蔽，不播放
+    if (isSfxMuted || (mutedSfx ?? {})[src]) return;
     
     // 播放音效
     const audio = new Audio(src);
@@ -89,7 +103,7 @@ export const useSfx = (src: SfxAssetPath, volume: number = UI_CONSTANTS.DEFAULT_
     audio.onended = () => {
       audio.src = '';
     };
-  }, [src, volume, isSfxMuted, sfxVolume]);
+  }, [src, volume, isSfxMuted, sfxVolume, mutedSfx]);
 };
 
 export const useSfxContext = () => {

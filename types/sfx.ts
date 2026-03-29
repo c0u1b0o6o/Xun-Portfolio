@@ -9,6 +9,8 @@ export interface SfxContextType{
     toggleSfxMute: () => void;
     sfxVolume: number;
     setSfxVolume: (volume: number) => void;
+    mutedSfx: Record<string, boolean>;
+    toggleSfxMuteByPath: (path: SfxAssetPath) => void;
 }
 // UseSfx Declare the type for hook of SFX Provider 
 export type SfxAssetPath = typeof SFX_ASSETS[keyof typeof SFX_ASSETS];

@@ -82,7 +82,7 @@ export function useLocalStorage<T = string>(
             onError?.(err);
             setIsLoaded(true);
         }
-    }, [key, syncOnMount, initialValue, onError]);
+    }, [key, syncOnMount]);
 
     // 同步更新：setValue 時自動持久化到 localStorage
     const handleSetValue = (newValue: T | ((prev: T | null) => T)) => {
