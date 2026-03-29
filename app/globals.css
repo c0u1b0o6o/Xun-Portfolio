@@ -66,8 +66,9 @@
     font-weight: bold;
   }
 
+  /* 響應式段落文字：手機 base → 桌面 xl */
   p {
-    font-size: var(--text-xl);
+    font-size: clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
   }
 }
 
@@ -83,6 +84,15 @@
     z-index: 0;
     pointer-events: none;
     opacity: 0.4;
+  }
+
+  /* 手機上縮小 dot-grid 間距 */
+  @media (max-width: 640px) {
+    .dot-grid-base {
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      opacity: 0.25;
+    }
   }
 }
 

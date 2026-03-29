@@ -5,6 +5,7 @@ import { useLayout, useSfx, useWindowContext } from "@/providers";
 import { RiCloseLine } from "react-icons/ri";
 import { WindowId } from '@/types/window';
 import { UI_CONSTANTS } from '@/constants';
+import { useMediaQuery, BREAKPOINTS } from '@/hooks';
 
 interface DragWindowProps {
     children: React.ReactNode;
@@ -16,6 +17,7 @@ interface DragWindowProps {
 export default function DragWindow({ children, title = 'None', id, className}: DragWindowProps) {
     const dragControls = useDragControls();
     const constrainRef = useLayout(); 
+    const isMobile = useMediaQuery(BREAKPOINTS.MOBILE);
     // 播放視窗關閉時的音效 (已記憶化)
     const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
     const playCloseSfx = useSfx("/sfx/close.mp3", UI_CONSTANTS.DEFAULT_VOLUME);
@@ -36,6 +38,86 @@ export default function DragWindow({ children, title = 'None', id, className}: D
         }
     }, [windowState?.isOpen]);
 
+    // ===== 手機版 =====
+    if (isMobile) {
+        const isWelcome = id === 'welcome';
+
+        // Welcome 視窗：固定顯示在頁面頂部
+        if (isWelcome) {
+            return (
+                <AnimatePresence>
+                    {windowState?.isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className={`w-full shadow-lg rounded-lg select-none ${className || ''}`}
+                        >
+                            <div className="relative bg-ink-900 rounded-lg pt-2 px-2 pb-1">
+                                <div className="flex flex-row items-center justify-between">
+                                    <h2 className="flex flex-col justify-center items-start font-mono text-surface-base text-xl font-normal text-center mb-2 ml-2">
+                                        {title}
+                                    </h2>
+                                    <CloseButton onClick={handleClose} />
+                                </div>
+                                <div className="flex flex-wrap items-center justify-center w-full p-3 bg-surface-elevated rounded-lg shadow-lg text-center">
+                                    {children}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            );
+        }
+
+        // 其他視窗：從下方滑出的 Bottom Sheet
+        return (
+            <AnimatePresence>
+                {windowState?.isOpen && (
+                    <>
+                        {/* 背景遮罩 */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+                            onClick={handleClose}
+                        />
+                        {/* Bottom Sheet 視窗 */}
+                        <motion.div
+                            initial={{ y: "100%", opacity: 0.5 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: "100%", opacity: 0 }}
+                            transition={{ type: "spring", damping: 30, stiffness: 350 }}
+                            className={`fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] select-none ${className || ''}`}
+                        >
+                            <div className="relative bg-ink-900 rounded-t-2xl pt-2 px-2 pb-1">
+                                {/* 拉柄指示器 */}
+                                <div className="flex justify-center pt-2 pb-1">
+                                    <div className="w-10 h-1 rounded-full bg-surface-base/40" />
+                                </div>
+                                {/* Header */}
+                                <div className="flex flex-row items-center justify-between px-1">
+                                    <h2 className="flex flex-col justify-center items-start font-mono text-surface-base text-xl font-normal text-center mb-2 ml-2">
+                                        {title}
+                                    </h2>
+                                    <CloseButton onClick={handleClose} />
+                                </div>
+                                {/* Content Area */}
+                                <div className="flex flex-wrap items-center justify-center w-full p-3 bg-surface-elevated rounded-t-lg shadow-lg text-center overflow-y-auto max-h-[calc(85vh-5rem)]">
+                                    {children}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
+        );
+    }
+
+    // ===== 桌面版：可拖曳視窗佈局 =====
     return (
         <AnimatePresence>
             {windowState?.isOpen && (

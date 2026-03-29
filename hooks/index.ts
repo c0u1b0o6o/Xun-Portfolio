@@ -7,3 +7,4 @@
 export { useRangeSlider, calculateRangeValue } from './useRangeSlider';
 export { useCopyToClipboard } from './useCopyToClipboard';
 export { useLocalStorage } from './useLocalStorage';
+export { useMediaQuery, BREAKPOINTS } from './useMediaQuery';

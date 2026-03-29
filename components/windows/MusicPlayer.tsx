@@ -76,10 +76,10 @@ export function MusicPlayerWindow() {
 
   return (
     <DragWindow title="MusicPlayer." id="musicplayer">
-      <div className="flex flex-col gap-5 w-64 select-none">
+      <div className="flex flex-col gap-5 w-full sm:w-64 select-none">
         {/* Track Info */}
         <div className="flex flex-col items-center justify-center text-center mt-2">
-          <h2 className="text-2xl font-bold font-display text-ink-900 bg-clip-text">
+          <h2 className="text-xl sm:text-2xl font-bold font-display text-ink-900 bg-clip-text">
             {currentTrack.title}
           </h2>
           <p className="text-sm font-mono text-ink-500 opacity-80 mt-1">

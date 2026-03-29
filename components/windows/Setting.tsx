@@ -17,7 +17,7 @@ export function SettingWindow() {
   const playPipeSfx = useSfx("/sfx/mental_pipe.mp3", 0.1);
   return (
     <DragWindow title="Setting." id="setting">
-      <div className="flex flex-col gap-6 p-4 w-72 select-none">
+      <div className="flex flex-col gap-6 p-4 w-full sm:w-72 select-none">
         {/* Music Volume Control */}
         <RangeSlider
           value={musicVolume || 0.5}
@@ -45,7 +45,7 @@ export function SettingWindow() {
         />
 
         {/* Individual SFX Mute Controls */}
-        <h1 className="text-2xl font-bold">Mute Effects</h1>
+        <h1 className="text-xl sm:text-2xl font-bold">Mute Effects</h1>
           <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
             {Object.entries(SFX_ASSETS).map(([key, path]) => (
               <div key={key} className="flex items-center gap-3 justify-between">

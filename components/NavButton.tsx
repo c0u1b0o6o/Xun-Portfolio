@@ -13,13 +13,13 @@ export function NavButton({ icon: Icon, title, onClick }: NavButtonProps) {
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="flex flex-col items-center flex-auto py-4"
+      className="flex flex-col items-center flex-auto py-2 sm:py-4"
     >
       {/* Icon 區域 */}
-      <Icon className="text-4xl mb-2" />
+      <Icon className="text-3xl sm:text-3xl md:text-4xl mb-1 sm:mb-2" />
       
       {/* 文字區域 */}
-      <h1 className="font-mono font-normal italic">{title}</h1>
+      <h1 className="font-mono font-normal italic text-sm sm:text-sm md:text-base">{title}</h1>
     </motion.button>
   );
 }
