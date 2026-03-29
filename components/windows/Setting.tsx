@@ -1,14 +1,14 @@
 // AI GENERATED
 import DragWindow from "../DragWindow";
 import {
-  RiVolumeUpFill,
-  RiVolumeMuteFill,
   RiRefreshLine,
 } from "react-icons/ri";
-import { MdMusicNote, MdMusicOff } from "react-icons/md";
+import { MdMusicNote } from "react-icons/md";
+import { RiVolumeUpFill } from "react-icons/ri";
 import { useSfxContext } from "@/providers/sfxProvider";
 import { useWindowContext } from "@/providers/windowProvider";
 import { useMusicContext } from "@/providers/musicProvider";
+import { RangeSlider } from "../RangeSlider";
 
 export function SettingWindow() {
   const { isSfxMuted, sfxVolume, setSfxVolume } = useSfxContext();
@@ -19,74 +19,30 @@ export function SettingWindow() {
     <DragWindow title="Setting." id="setting">
       <div className="flex flex-col gap-6 p-4 w-72 select-none">
         {/* Music Volume Control */}
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-bold text-ink-900 flex items-center gap-2">
+        <RangeSlider
+          value={musicVolume || 0.5}
+          onChange={setMusicVolume}
+          label={
+            <span className="flex items-center gap-2">
               <MdMusicNote size={18} />
               <h1>BGM</h1>
             </span>
-          </div>
-          <div
-            onPointerDown={(e) => e.stopPropagation()}
-            className="relative h-6 flex items-center group"
-          >
-            {/* 軌道背景 */}
-            <div className="absolute w-full h-1.5 bg-ink-100 rounded-full group-hover:bg-ink-200 transition-colors" />
-            {/* 進度色塊 */}
-            <div
-              className="absolute h-1.5 bg-ink-900 rounded-full pointer-events-none"
-              style={{ width: `${musicVolume * 100}%` }}
-            />
-            {/* 拉鈕 */}
-            <div
-              className="absolute h-3.5 w-3.5 bg-ink-900 rounded-full shadow-sm pointer-events-none"
-              style={{ left: `calc(${musicVolume * 100}% - 7px)` }}
-            />
-            {/* 真正的透明 Input */}
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={musicVolume}
-              onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
-              className="absolute inset-0 w-full opacity-0 cursor-pointer z-10"
-            />
-          </div>
-        </div>
+          }
+          stopPropagation
+        />
 
         {/* SFX Volume Control */}
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-bold text-ink-900 flex items-center gap-2">
+        <RangeSlider
+          value={sfxVolume || 0.5}
+          onChange={setSfxVolume}
+          label={
+            <span className="flex items-center gap-2">
               <RiVolumeUpFill size={18} />
               <h1>SFX</h1>
             </span>
-          </div>
-          <div
-            onPointerDown={(e) => e.stopPropagation()}
-            className="relative h-6 flex items-center group"
-          >
-            <div className="absolute w-full h-1.5 bg-ink-100 rounded-full group-hover:bg-ink-200 transition-colors" />
-            <div
-              className="absolute h-1.5 bg-ink-900 rounded-full pointer-events-none"
-              style={{ width: `${sfxVolume * 100}%` }}
-            />
-            <div
-              className="absolute h-3.5 w-3.5 bg-ink-900 rounded-full shadow-sm pointer-events-none"
-              style={{ left: `calc(${sfxVolume * 100}% - 7px)` }}
-            />
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={sfxVolume}
-              onChange={(e) => setSfxVolume(parseFloat(e.target.value))}
-              className="absolute inset-0 w-full opacity-0 cursor-pointer z-10"
-            />
-          </div>
-        </div>
+          }
+          stopPropagation
+        />
 
         {/* Reset Action */}
         <button

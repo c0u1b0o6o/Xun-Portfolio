@@ -33,25 +33,6 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     DEFAULT_WINDOWS_STATES,
   );
 
-  /**
-   * ...prev equal {EFAULT_WINDOWS_PROPS (expanded)}
-   * ...prev[id] equal the specific window that we want to update (expanded), like:about: { id: 'about', isOpen: false, x: 500, y: 300, z: 14 },
-   * [id]:{}, by ID as key, update the [ID] window's state
-   * run1:..
-   * run4:['about']:{(Props Expanded), isOpen:!prev['about'].isOpen} means, hey! i want to change the isOpen state and other keep the same.
-   * So this is how we toggle the window, we just change the isOpen state.\0
-   */
-  // const toggleWindow = (id: WindowId) => {
-  //     setWindows(prev => ({
-  //         ...prev,
-  //         [id]: {
-  //             ...prev[id],
-  //             isOpen: !prev[id].isOpen,
-  //         }
-  //     }));
-  // }
-  // But this is hard as hell i think. so...
-
   const resetWindows = () => {
     setWindows(DEFAULT_WINDOWS_STATES);
   };

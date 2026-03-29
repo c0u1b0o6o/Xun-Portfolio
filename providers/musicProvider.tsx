@@ -1,10 +1,11 @@
 "use client";
 
 import { MusicContextType, MusicProps } from "@/types/music";
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { createContext, useEffect } from "react";
 import { MUSIC_ASSETS } from "@/constants/music";
 import { UI_CONSTANTS } from "@/constants";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const defaultValue: MusicContextType = {
   isPlaying: false,
@@ -28,52 +29,39 @@ const defaultValue: MusicContextType = {
   },
 };
 
-// Create the Music Abstract Context Type Object.
 const MusicContext = createContext<MusicContextType>(defaultValue);
 
-// Create the Music Provider Component, which will provide the music context to its children.
-// useEffect is (()=>{}, [])
-// {} is how it run
-// [] is when it run, like what should we listen to trigger the effect.
-// 1. [], it only run once when the component is mounted.
-// 2. [isMusicMuted], it will run when the component is mounted and when the isMusicMuted state changes.
-// 3. , nothing, you should take care bout it bro. It'll run all the time when anything updated.
+/**
+ * MusicProvider - 音樂播放上下文提供者
+ * 
+ * 管理：播放狀態、當前音軌、音量、Audio 實例
+ * 使用 useLocalStorage 統一管理 localStorage 邏輯
+ */
 export function MusicProvider({ children }: { children: React.ReactNode }) {
-  const [isPlaying, setIsPlaying] = React.useState(false); // Changed to isPlaying, default false
+  const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<MusicProps>(
     MUSIC_ASSETS.CRUSH,
   );
-  const [musicVolume, setMusicVolume] = React.useState<number>(UI_CONSTANTS.DEFAULT_VOLUME);
+  const { value: musicVolume, setValue: setMusicVolume } = useLocalStorage<number>(
+    'musicVolume',
+    { initialValue: UI_CONSTANTS.DEFAULT_VOLUME }
+  );
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
-  // ---This useEffect will run once while amounting.---
   // 初始化單一 Audio 實例以確保 CavaVisualizer 連線不會因為換歌被切斷
   useEffect(() => {
     const audio = new Audio();
     audio.loop = true;
     audioRef.current = audio;
 
-    // We should not save because when user refresh the page, it still remember the state, when mounted, the play button still might be the play one, not palse one.
-    // const savedPlayState = localStorage.getItem("isPlaying");
-    // if (savedPlayState) {
-    //   setIsPlaying(JSON.parse(savedPlayState));
-    // }
-
-    const savedVolume = localStorage.getItem("musicVolume");
-    if (savedVolume) {
-      setMusicVolume(parseFloat(savedVolume));
-    } else {
-      localStorage.setItem('musicVolume', JSON.stringify(UI_CONSTANTS.DEFAULT_VOLUME));
-    }
-
     return () => {
       audio.pause();
       audio.src = '';
       audioRef.current = null;
     };
-  }, []); // 只在掛載時執行一次
+  }, []);
 
-  // ---This useEffect will rerun when the isPlaying or currentTrack state changes.---
+  // Audio 播放邏輯：當播放狀態、當前音軌或音量改變時更新
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -85,7 +73,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     }
 
     // 確保音量隨設定更新
-    audio.volume = currentTrack.defaultVolume * musicVolume;
+    audio.volume = currentTrack.defaultVolume * (musicVolume ?? UI_CONSTANTS.DEFAULT_VOLUME);
 
     if (isPlaying) {
       audio.play().catch((e) => {
@@ -96,30 +84,20 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isPlaying, currentTrack, musicVolume]);
 
-  // ---This is the function to toggle the music mute state. We Abstracted it before.---
-  // 1. set toggle state, if 1 ? 0 : 1. Yeah. You should know what im talkin bout.
-  const togglePlayPause = React.useCallback(() => {
-    setIsPlaying((prev) => {
-      const newState = !prev;
-      // /*NOTE: I just ai and maybe it's working like, when user play the music, and want to turn to another tab
-      // make this website rebuild, state reset, the music stop. So use localStorage to presist this situation*/
-      // localStorage.setItem("isPlaying", JSON.stringify(newState));
-      return newState;
-    });
+  const togglePlayPause = useCallback(() => {
+    setIsPlaying((prev) => !prev);
   }, []);
 
-  const setMusicVolumeWithPersist = React.useCallback((volume: number) => {
+  const setMusicVolumeWithPersist = useCallback((volume: number) => {
     setMusicVolume(volume);
-    localStorage.setItem("musicVolume", JSON.stringify(volume));
-  }, []);
+  }, [setMusicVolume]);
 
-  // ---This is the function to change the music track.---
-  // Change the current track and keep the music playing state.
-  const changeTrack = React.useCallback((track: MusicProps) => {
+  // 改變當前播放的音軌
+  const changeTrack = useCallback((track: MusicProps) => {
     setCurrentTrack(track);
   }, []);
 
-  const nextTrack = React.useCallback(() => {
+  const nextTrack = useCallback(() => {
     setCurrentTrack((prev) => {
       const tracks = Object.values(MUSIC_ASSETS);
       const idx = tracks.findIndex((t) => t.src === prev.src);
@@ -127,7 +105,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const prevTrack = React.useCallback(() => {
+  const prevTrack = useCallback(() => {
     setCurrentTrack((prev) => {
       const tracks = Object.values(MUSIC_ASSETS);
       const idx = tracks.findIndex((t) => t.src === prev.src);
@@ -145,7 +123,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         changeTrack,
         nextTrack,
         prevTrack,
-        musicVolume,
+        musicVolume: musicVolume ?? UI_CONSTANTS.DEFAULT_VOLUME, // HACK:
         setMusicVolume: setMusicVolumeWithPersist,
       }}
     >

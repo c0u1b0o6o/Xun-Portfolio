@@ -1,18 +1,10 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DragWindow from "../DragWindow";
-import { url } from "inspector";
 import { UI_CONSTANTS } from "@/constants";
+import { CopyButton } from "../CopyButton";
 
 export function EmailContent() {
-    const [copied, setCopied] = useState(false);
     const email = "cuboomax@gmail.com";
-
-    const handleCopy = () => {
-        navigator.clipboard.writeText(email);
-        setCopied(true);
-        setTimeout(() => setCopied(false), UI_CONSTANTS.COPY_FEEDBACK_DURATION);
-    };
 
     return (
         <div className="p-6 flex flex-col justify-center items-center gap-4 w-fit select-none">
@@ -20,54 +12,18 @@ export function EmailContent() {
                 <h1 className="font-mono text-3xl font-bold mb-2">
                     Contact Me via Email?
                 </h1>
-                <div
-                    onClick={handleCopy}
-                    className="cursor-pointer group relative flex flex-col items-center"
-                >
-                    <h1 className="font-mono text-2xl underline underline-offset-4 group-hover:scale-105 group-hover:text-bright-amber text-tropical-teal transition-all duration-200">
-                        {email}
-                    </h1>
-                    <div className="h-6 mt-1 flex items-center justify-center">
-                        <AnimatePresence mode="wait">
-                            {copied ? (
-                                //AI GENERATED
-                                <motion.p
-                                    key="copied"
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.8 }}
-                                    className="text-ink-700"
-                                >
-                                    Copied!
-                                </motion.p>
-                            ) : (
-                                <motion.p
-                                    key="copy"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="text-ink-700"
-                                >
-                                    Click it to copy!
-                                </motion.p>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                </div>
+                <CopyButton
+                    textToCopy={email}
+                    displayText={email}
+                    feedbackDuration={UI_CONSTANTS.COPY_FEEDBACK_DURATION}
+                />
             </div>
         </div>
     );
 }
 
 export function DiscordContent() {
-    const [copied, setCopied] = useState(false);
     const username = "cuboo";
-
-    const handleCopy = () => {
-        navigator.clipboard.writeText(username);
-        setCopied(true);
-        setTimeout(() => setCopied(false), UI_CONSTANTS.COPY_FEEDBACK_DURATION);
-    };
 
     return (
         <div className="p-6 flex flex-col justify-center items-center gap-4 w-fit select-none">
@@ -84,39 +40,11 @@ export function DiscordContent() {
                     So, The best way to contact me is via Discord! <br />
                     Here's my <span className="font-montserrat font-bold">username</span>:
                 </p>
-                <div
-                    onClick={handleCopy}
-                    className="cursor-pointer group relative flex flex-col items-center"
-                >
-                    <h1 className="font-mono text-2xl underline underline-offset-4 group-hover:scale-105 group-hover:text-bright-amber text-tropical-teal transition-all duration-200">
-                        {username}
-                    </h1>
-                    <div className="h-6 mt-1 flex items-center justify-center">
-                        <AnimatePresence mode="wait">
-                            {copied ? (
-                                <motion.p
-                                    key="copied"
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.8 }}
-                                    className="text-ink-700"
-                                >
-                                    Copied!
-                                </motion.p>
-                            ) : (
-                                <motion.p
-                                    key="copy"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="text-ink-700"
-                                >
-                                    Click it to copy!
-                                </motion.p>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                </div>
+                <CopyButton
+                    textToCopy={username}
+                    displayText={username}
+                    feedbackDuration={UI_CONSTANTS.COPY_FEEDBACK_DURATION}
+                />
             </div>
         </div>
     );
