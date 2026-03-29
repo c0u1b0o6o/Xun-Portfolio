@@ -26,7 +26,7 @@ export function WelcomeWindow(){
             <h1 className="w-full font-mono font-display font-normal text-xl sm:text-xl md:text-2xl">
               You can take a look!
             </h1>
-          <div className="mt-8 sm:mt-4 w-full grid grid-cols-1 sm:grid-cols-5 items-center justify-center gap-3 sm:gap-2">
+          <div className="mt-8 sm:mt-4 w-full grid grid-cols-2 sm:grid-cols-5 items-center justify-center gap-3 sm:gap-2">
             {/* I need some navbutton, icon is above and title below */}
             <NavButton icon={RiInformationFill} title="about" onClick={handleOnClick("about")} />
             <NavButton icon={RiPhoneFill} title="contact" onClick={handleOnClick("contact")} />

@@ -80,12 +80,12 @@ export default function NameDisplay() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex flex-col sm:flex-row w-fit ml-2"
+            className="flex flex-row w-fit ml-2"
           >
-            <h1 className="text-center font-mono font-bold text-3xl sm:text-4xl md:text-6xl tracking-wider italic">
+            <h1 className="text-center font-mono font-bold text-4xl sm:text-5xl md:text-6xl tracking-wider italic">
               MengXun
             </h1>
-            <h1 className="sm:ml-2 font-montserrat font-extrabold text-3xl sm:text-4xl md:text-6xl tracking-wider primary-gradient-text">
+            <h1 className="sm:ml-2 font-montserrat font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-wider primary-gradient-text">
               Liu
             </h1>
           </motion.div>
@@ -98,7 +98,7 @@ export default function NameDisplay() {
             exit="exit"
             className="w-fit"
           >
-            <h1 className="primary-gradient-text text-center font-mono font-bold text-3xl sm:text-4xl md:text-6xl tracking-wider italic">
+            <h1 className="primary-gradient-text text-center font-mono font-bold text-4xl sm:text-5xl md:text-6xl tracking-wider italic">
               Cuboo
             </h1>
           </motion.div>

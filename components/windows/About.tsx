@@ -14,7 +14,7 @@ import { ExternalLink } from "@/components/ExternalLink";
  */
 export function AboutWindow() {
     return (
-        <DragWindow title="About." id="about" className="max-w-[calc(100vw-2rem)] sm:max-w-2xl">
+        <DragWindow title="About." id="about" className="max-w-[calc(100vw)] sm:max-w-2xl">
             <div className="mb-3 flex flex-col sm:flex-row w-full justify-center sm:justify-start items-center gap-4 sm:gap-y-7 p-4 sm:p-5">
                 <div className="shrink-0 sm:mr-2">
                     <GifAvatar imageScale={1.5} offsetY={20} offsetX={-5}/>
@@ -28,7 +28,7 @@ export function AboutWindow() {
                     </p>
                 </div>
             </div>
-            <div className="text-center sm:text-start mt-2 flex max-h-81.25 overflow-y-auto justify-start w-full flex-col gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="text-start mt-2 flex max-h-81.25 overflow-y-auto justify-start w-full flex-col gap-3 sm:gap-4 p-4 sm:p-5">
                 <p className="w-full text-start">
                     Hey, it's me. I am...
                 </p>
@@ -83,7 +83,7 @@ export function AboutWindow() {
                 <h1 className="mt-3 text-2xl sm:text-3xl">
                     Shout Out
                 </h1>
-                <div className="border-l-2 pl-4">
+                <div className="border-l-2 pl-4 text-start">
                     <ExternalLink 
                       href="https://www.sharyap.com/"
                       variant="large"

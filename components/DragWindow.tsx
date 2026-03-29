@@ -52,7 +52,7 @@ export default function DragWindow({ children, title = 'None', id, className}: D
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            className={`w-full shadow-lg rounded-lg select-none ${className || ''}`}
+                            className={`w-full shadow-lg rounded-lg ${className || ''}`}
                         >
                             <div className="relative bg-ink-900 rounded-lg pt-2 px-2 pb-1">
                                 <div className="flex flex-row items-center justify-between">

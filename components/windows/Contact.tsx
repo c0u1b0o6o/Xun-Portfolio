@@ -45,8 +45,8 @@ export function ContactWindow() {
   
   return (
     <DragWindow title="Contact ME." id="contact">
-      <div className="flex flex-col w-full">
-        <div className="grid grid-cols-5 gap-1 sm:gap-4">
+      <div className="sm:flex sm:flex-col w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-1 sm:gap-4">
           {socialLinks.map((link) => (
             <SocialButton
               key={link.name}
@@ -85,8 +85,8 @@ function SocialButton({
       }
       title={name}
     >
-      <Icon className="text-3xl sm:text-4xl md:text-6xl transition-colors duration-200" />
-      <h1 className="font-ex-thin text-ink-900 dark:text-gray-200 italic leading-none text-xs sm:text-sm md:text-base">
+      <Icon className="text-5xl sm:text-4xl md:text-6xl transition-colors duration-200" />
+      <h1 className="font-ex-thin text-ink-900 dark:text-gray-200 italic leading-none text-sm sm:text-sm md:text-base">
         {name}
       </h1>
     </button>
