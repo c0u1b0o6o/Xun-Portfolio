@@ -1,11 +1,12 @@
-import DragWindow from "../DragWindow";
+import DragWindow from "@/components/DragWindow";
 import { RiBallPenFill, RiInformationFill, RiMusicAiFill, RiPhoneFill, RiSettings3Fill } from "react-icons/ri";
-import { NavButton } from "../NavButton";
+import { NavButton } from "@/components/NavButton";
 import { useSfx, useWindowContext } from "@/providers";
 import { WindowId } from "@/types/window";
 import { UI_CONSTANTS } from "@/constants";
 
 export function WelcomeWindow(){
+  // 創建播放點擊音效的函數 (已記憶化，考慮靜音和音量設定)
   const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
   const { toggleWindow } = useWindowContext();
   const handleOnClick = (windowId:WindowId) => {

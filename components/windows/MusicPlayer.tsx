@@ -5,7 +5,7 @@ import {
   RiPlayFill,
   RiPauseFill,
 } from "react-icons/ri";
-import DragWindow from "../DragWindow";
+import DragWindow from "@/components/DragWindow";
 import { useMusicContext } from "@/providers/musicProvider";
 import { useEffect, useState, useRef } from "react";
 

@@ -1,5 +1,5 @@
 // AI GENERATED
-import DragWindow from "../DragWindow";
+import DragWindow from "@/components/DragWindow";
 import {
   RiRefreshLine,
 } from "react-icons/ri";
@@ -8,7 +8,7 @@ import { RiVolumeUpFill } from "react-icons/ri";
 import { useSfxContext } from "@/providers/sfxProvider";
 import { useWindowContext } from "@/providers/windowProvider";
 import { useMusicContext } from "@/providers/musicProvider";
-import { RangeSlider } from "../RangeSlider";
+import { RangeSlider } from "@/components/RangeSlider";
 
 export function SettingWindow() {
   const { isSfxMuted, sfxVolume, setSfxVolume } = useSfxContext();

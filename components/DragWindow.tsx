@@ -3,7 +3,7 @@ import { motion, useDragControls, AnimatePresence, useMotionValue } from "framer
 import React, { useEffect } from "react";
 import { useLayout, useSfx, useWindowContext } from "@/providers";
 import { RiCloseLine } from "react-icons/ri";
-import { WindowId } from '../types/window';
+import { WindowId } from '@/types/window';
 import { UI_CONSTANTS } from '@/constants';
 
 interface DragWindowProps {
@@ -16,6 +16,7 @@ interface DragWindowProps {
 export default function DragWindow({ children, title = 'None', id, className}: DragWindowProps) {
     const dragControls = useDragControls();
     const constrainRef = useLayout(); 
+    // 播放視窗關閉時的音效 (已記憶化)
     const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
 
     const [isDragging, setIsDragging] = React.useState(false);

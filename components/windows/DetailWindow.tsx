@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import DragWindow from "../DragWindow";
+import DragWindow from "@/components/DragWindow";
 import { UI_CONSTANTS } from "@/constants";
-import { CopyButton } from "../CopyButton";
+import { CopyButton } from "@/components/CopyButton";
 
 export function EmailContent() {
     const email = "cuboomax@gmail.com";

@@ -1,4 +1,4 @@
-import DragWindow from "../DragWindow";
+import DragWindow from "@/components/DragWindow";
 
 export function BlogPreviewWindow() {
     return (

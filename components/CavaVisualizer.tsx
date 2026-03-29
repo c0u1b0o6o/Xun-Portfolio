@@ -35,6 +35,7 @@ export default function CavaVisualizer() {
   const { isPlaying, audioRef } = useMusicContext();
 
   // 1. 處理顏色獲取 (封裝動態顏色邏輯)
+  // 依賴：無 - 此函數只進行 DOM 查詢和本地狀態更新
   const updateInkColor = useCallback(() => {
     if (typeof window === 'undefined') return;
     const style = getComputedStyle(document.documentElement);
@@ -49,6 +50,8 @@ export default function CavaVisualizer() {
   }, []);
 
   // 2. 音訊初始化 (單例模式)
+  // 依賴：[audioRef] - 僅在 audioRef 變更時重新初始化
+  // 注意：使用單例模式確保 AudioContext 只創建一次
   const initAudio = useCallback(() => {
     if (audioContextRef.current || !audioRef?.current) return;
 
@@ -82,6 +85,8 @@ export default function CavaVisualizer() {
   }, [audioRef]);
 
   // 3. 繪圖核心邏輯
+  // 依賴：[isPlaying] - isPlaying 變更時更新繪圖邏輯
+  // 原理：每一幀都會從 analyser 獲取頻率數據，計算平滑值，並在 canvas 上繪製
   const draw = useCallback((ctx: CanvasRenderingContext2D) => {
     const { width, height } = ctx.canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
