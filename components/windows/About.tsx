@@ -4,6 +4,7 @@ import DragWindow from "@/components/DragWindow";
 import { UI_CONSTANTS } from "@/constants";
 import NameDisplay from "@/components/windows/NameDisplay";
 import { GifAvatar } from "@/components/windows/Avatar";
+import { ExternalLink } from "@/components/ExternalLink";
 
 /**
  * AboutWindow - 關於我的視窗組件
@@ -83,27 +84,24 @@ export function AboutWindow() {
                     Shout Out
                 </h1>
                 <div className="border-l-2 pl-4">
-                    {/* FIXME: Duplicated!!!*/}
-                    <a 
-                    href="https://www.sharyap.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className=" text-tropical-teal hover:text-bright-amber transition-colors duration-300 underline text-2xl font-bold italic">
+                    <ExternalLink 
+                      href="https://www.sharyap.com/"
+                      variant="large"
+                    >
                         shar's desktop
-                    </a>
+                    </ExternalLink>
                     <p className="">
                     This portfolio UI/UX inspired by hers.
                     It's so cool and aesthetic, and I want to make one for myself. So here we are.
                     </p>
                 </div>
-                <a 
-                    href="https://github.com/c0u1b0o6o/Xun-Portfolio" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-block font-bold text-tropical-teal hover:text-bright-amber transition-colors duration-300 underline"
+                <ExternalLink 
+                    href="https://github.com/c0u1b0o6o/Xun-Portfolio"
+                    variant="minimal" 
+                    className="mt-4"
                 >
                     CHECK MY PORTFOLIO SOURCE CODE ON GITHUB!
-                </a>
+                </ExternalLink>
             </div>
         </DragWindow>
     )
