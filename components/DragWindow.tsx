@@ -18,6 +18,7 @@ export default function DragWindow({ children, title = 'None', id, className}: D
     const constrainRef = useLayout(); 
     // 播放視窗關閉時的音效 (已記憶化)
     const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
+    const playCloseSfx = useSfx("/sfx/close.mp3", UI_CONSTANTS.DEFAULT_VOLUME);
 
     const [isDragging, setIsDragging] = React.useState(false);
 
@@ -26,7 +27,7 @@ export default function DragWindow({ children, title = 'None', id, className}: D
 
     const handleClose = () => {
         toggleWindow(id);
-        playClickSfx();
+        playCloseSfx();
     };
 
     useEffect(() => {

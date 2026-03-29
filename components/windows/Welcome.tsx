@@ -7,7 +7,7 @@ import { UI_CONSTANTS } from "@/constants";
 
 export function WelcomeWindow(){
   // 創建播放點擊音效的函數 (已記憶化，考慮靜音和音量設定)
-  const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
+  const playClickSfx = useSfx("/sfx/open.mp3", UI_CONSTANTS.DEFAULT_VOLUME);
   const { toggleWindow } = useWindowContext();
   const handleOnClick = (windowId:WindowId) => {
     return () => {

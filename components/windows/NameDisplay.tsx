@@ -1,7 +1,7 @@
 'use client';
 // NOTE: Placed in windows folder for window management consistency
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, scale, Variants } from "framer-motion";
 import { useSfx } from "@/providers";
 import { UI_CONSTANTS } from "@/constants";
 

@@ -3,4 +3,7 @@
  */
 export const SFX_ASSETS = {
     CLICK: "/sfx/click.wav",
+    BUTTON_PRESS: "/sfx/button_press.wav",
+    CLOSE: "/sfx/close.mp3",
+    OPEN: "/sfx/open.mp3",
 } as const;

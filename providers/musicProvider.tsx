@@ -40,7 +40,7 @@ const MusicContext = createContext<MusicContextType>(defaultValue);
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<MusicProps>(
-    MUSIC_ASSETS.CRUSH,
+    MUSIC_ASSETS.AURA,
   );
   const { value: musicVolume, setValue: setMusicVolume } = useLocalStorage<number>(
     'musicVolume',

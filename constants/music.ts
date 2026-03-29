@@ -14,7 +14,7 @@ export const MUSIC_ASSETS= {
         src: "/music/AURA.mp3",
         defaultVolume: 0.3,
         title: "Aura",
-        author: "Various Artists"
+        author: "nga"
     },
     BLOOMINGVILLAIN:{
         src: "/music/BloomingVillain.mp3",
