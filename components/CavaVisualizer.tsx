@@ -1,5 +1,4 @@
 'use client';
-// AI GENERATED
 import { useEffect, useRef, useCallback } from 'react';
 import { useMusicContext } from '@/providers/musicProvider';
 

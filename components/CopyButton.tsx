@@ -43,10 +43,14 @@ export function CopyButton({
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(textToCopy);
-    setCopied(true);
-    setTimeout(() => setCopied(false), feedbackDuration);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), feedbackDuration);
+    } catch (err) {
+      console.warn("[CopyButton] Failed to copy text:", err);
+    }
   };
 
   return (

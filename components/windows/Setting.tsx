@@ -1,4 +1,3 @@
-// AI GENERATED
 import DragWindow from "@/components/DragWindow";
 import {
   RiRefreshLine,

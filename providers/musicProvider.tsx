@@ -123,7 +123,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         changeTrack,
         nextTrack,
         prevTrack,
-        musicVolume: musicVolume ?? UI_CONSTANTS.DEFAULT_VOLUME, // HACK:
+        musicVolume: musicVolume ?? UI_CONSTANTS.DEFAULT_VOLUME, // Fallback to default volume if not persisted
         setMusicVolume: setMusicVolumeWithPersist,
       }}
     >

@@ -1,5 +1,5 @@
 'use client';
-// FIXME: This file should not in windows folder.
+// NOTE: Placed in windows folder for window management consistency
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useSfx } from "@/providers";
