@@ -218,9 +218,9 @@ interface PigeonAvatarProps {
 
 export function GifAvatar({
     size = 160,
-    imageScale = 10, // 預設放大 1.3 倍
-    offsetX = 15,   // 預設向左移 15px (因為鴿子可能偏右)
-    offsetY = 0,   // 預設向上移 10px
+    imageScale = 1.3, // 預設放大 1.3 倍
+    offsetX = 15,     // 預設向左移 15px (因為鴿子可能偏右)
+    offsetY = 0,      // 預設向上移 10px
 }: PigeonAvatarProps) {
     return (
         // 1. 外層容器：負責定義圓形和裁切
@@ -229,25 +229,14 @@ export function GifAvatar({
             style={{ width: `${size}px`, height: `${size}px` }}
         >
             <Image
-                src="/gif/pigeon_doctor_walking.gif" // 2. 正確的 public 路徑
+                src="/gif/pigeon_doctor_walking.gif"
                 alt="Pigeon Doctor Walking"
-                fill // 3. 讓圖片基礎大小填滿容器
-                unoptimized // 4. GIF 必加！
-
-                // 🚀 關鍵 5：Tailwind 任意值 (Arbitrary Values)
-                // 注意：在 scale 裡，1 等於 100%。1.3 等於 130%。
-                // className 的寫法：[`scale-[1.3]`] [`translate-x-[-15px]`] [`translate-y-[-10px]`]
-                className={`
-          object-cover // 基礎比例防拉伸
-          
-          // 進階調整：放大並位移焦點
-          scale-[${imageScale}] 
-          translate-x-[${offsetX}px] 
-          translate-y-[${offsetY}px]
-          
-          // 加上 hover 的水平翻轉 (scale-x 的 -1 會和基礎的 scale 疊加，Framer Motion 能處理這個)
-          transition-transform duration-300 hover:scale-160
-        `}
+                fill
+                unoptimized
+                className="object-cover transition-transform duration-300"
+                style={{
+                    transform: `scale(${imageScale}) translate(${offsetX}px, ${offsetY}px)`,
+                }}
             />
         </div>
     );

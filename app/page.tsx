@@ -1,10 +1,6 @@
 "use client";
-
-import { useState } from "react";
 import DotGridBackground from "@/components/DotGridBackground";
-import DragWindow from "@/components/DragWindow";
 import React from "react";
-import { AnimatePresence } from "framer-motion";
 import { LayoutProvider } from "@/providers/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
 import { ContactWindow } from "@/components/windows/Contact";
@@ -13,11 +9,10 @@ import { useWindowContext } from "@/providers";
 import { AboutWindow } from "@/components/windows/About";
 import { MusicPlayerWindow } from "@/components/windows/MusicPlayer";
 import { BlogPreviewWindow } from "@/components/windows/BlogPreview";
-import { DetailWindows } from "@/components/windows/DetaileWindow";
+import { DetailWindows } from "@/components/windows/DetailWindow";
 
 export default function Home() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
-  const { windows } = useWindowContext();
   return (
     <main
       ref={constraintsRef}
