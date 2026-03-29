@@ -17,7 +17,7 @@ export function AboutWindow() {
         <DragWindow title="About." id="about" className="max-w-2xl">
             <div className="mb-3 flex w-full justify-start items-center gap-y-7 p-5">
                 <div className="shrink-0 mr-2">
-                    <GifAvatar />
+                    <GifAvatar imageScale={1.5} offsetY={20} offsetX={-5}/>
                 </div>
                 <div className="flex flex-col gap-4 ml-2">
                     <NameDisplay />

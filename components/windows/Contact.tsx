@@ -9,6 +9,7 @@ import {
 } from "react-icons/ri";
 import { useWindowContext } from "@/providers/windowProvider";
 import { WINDOW_ID } from "@/constants/window";
+import { useSfx } from "@/providers";
 
 const socialLinks = [
   {
@@ -40,7 +41,8 @@ const socialLinks = [
 
 export function ContactWindow() {
   const { toggleWindow } = useWindowContext();
-
+  const playOpenSfx = useSfx("/sfx/open.mp3"); // 假設音量為0.5，實際使用時可以從設定中獲取
+  
   return (
     <DragWindow title="Contact ME." id="contact">
       <div className="flex flex-col w-full">
@@ -55,6 +57,7 @@ export function ContactWindow() {
                   window.open(link.url, "_blank");
                 } else {
                   toggleWindow(link.id);
+                  playOpenSfx();
                 }
               }}
             />

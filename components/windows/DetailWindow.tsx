@@ -2,10 +2,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import DragWindow from "@/components/DragWindow";
 import { UI_CONSTANTS } from "@/constants";
 import { CopyButton } from "@/components/CopyButton";
+import { useEffect } from "react";
+import { useSfx } from "@/providers";
 
 export function EmailContent() {
     const email = "cuboomax@gmail.com";
-
     return (
         <div className="p-6 flex flex-col justify-center items-center gap-4 w-fit select-none">
             <div className="text-center">
@@ -24,6 +25,11 @@ export function EmailContent() {
 
 export function DiscordContent() {
     const username = "cuboo";
+    const playOmgSfx = useSfx("/sfx/omg.mp3", UI_CONSTANTS.DEFAULT_VOLUME-0.25);
+
+    useEffect(() => {
+        playOmgSfx();
+    }, []);
 
     return (
         <div className="p-6 flex flex-col justify-center items-center gap-4 w-fit select-none">

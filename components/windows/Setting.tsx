@@ -4,7 +4,7 @@ import {
 } from "react-icons/ri";
 import { MdMusicNote } from "react-icons/md";
 import { RiVolumeUpFill } from "react-icons/ri";
-import { useSfxContext } from "@/providers/sfxProvider";
+import { useSfx, useSfxContext } from "@/providers/sfxProvider";
 import { useWindowContext } from "@/providers/windowProvider";
 import { useMusicContext } from "@/providers/musicProvider";
 import { RangeSlider } from "@/components/RangeSlider";
@@ -13,7 +13,7 @@ export function SettingWindow() {
   const { isSfxMuted, sfxVolume, setSfxVolume } = useSfxContext();
   const { isPlaying, musicVolume, setMusicVolume } = useMusicContext();
   const { resetWindows } = useWindowContext();
-
+  const playPipeSfx = useSfx("/sfx/mental_pipe.mp3", 0.1);
   return (
     <DragWindow title="Setting." id="setting">
       <div className="flex flex-col gap-6 p-4 w-72 select-none">
@@ -45,7 +45,10 @@ export function SettingWindow() {
 
         {/* Reset Action */}
         <button
-          onClick={resetWindows}
+          onClick={() => {
+            resetWindows();
+            playPipeSfx();
+          }}
           className="flex items-center gap-2 font-bold w-full justify-center rounded-lg hover:scale-[1.02] hover:text-spicy-paprika active:scale-[0.98] transition-all"
         >
           <RiRefreshLine size={25} />
