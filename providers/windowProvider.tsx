@@ -32,12 +32,6 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
   const [windows, setWindows] = React.useState<Record<WindowId, WindowProps>>(
     DEFAULT_WINDOWS_STATES,
   );
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  useEffect(() => {
-    setWindows(DEFAULT_WINDOWS_STATES); // set all the windows to default.
-    setIsMounted(true);
-  }, []);
 
   /**
    * ...prev equal {EFAULT_WINDOWS_PROPS (expanded)}

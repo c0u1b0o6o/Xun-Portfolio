@@ -2,11 +2,12 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { SfxAssetPath, SfxContextType } from '@/types/sfx';
+import { UI_CONSTANTS } from '@/constants';
 
 const defaultContext: SfxContextType = {
   isSfxMuted: false,
   toggleSfxMute: () => console.warn('SfxProvider is not wrapped'),
-  sfxVolume: 0.5,
+  sfxVolume: UI_CONSTANTS.DEFAULT_VOLUME,
   setSfxVolume: () => console.warn('SfxProvider is not wrapped'),
 };
 
@@ -14,8 +15,7 @@ const SfxContext = createContext<SfxContextType>(defaultContext);
 
 export function SfxProvider({ children }: { children: React.ReactNode }) {
   const [isSfxMuted, setIsSfxMuted] = React.useState(false);
-  const [isMounted, setIsMounted] = React.useState(false);
-  const [sfxVolume, setSfxVolume] = React.useState(0.5);
+  const [sfxVolume, setSfxVolume] = React.useState<number>(UI_CONSTANTS.DEFAULT_VOLUME);
 
   useEffect(() => {
     const savedMute = localStorage.getItem('isSfxMuted');
@@ -27,10 +27,8 @@ export function SfxProvider({ children }: { children: React.ReactNode }) {
     if (savedVolume) {
       setSfxVolume(parseFloat(savedVolume));
     }else{
-      localStorage.setItem('sfxVolume', JSON.stringify(0.5));
+      localStorage.setItem('sfxVolume', JSON.stringify(UI_CONSTANTS.DEFAULT_VOLUME));
     }
-
-    setIsMounted(true);
   }, []);
 
   const toggleSfxMute = React.useCallback(() => {
@@ -52,7 +50,7 @@ export function SfxProvider({ children }: { children: React.ReactNode }) {
     </SfxContext.Provider>
   );
 }
-export const useSfx: (src: SfxAssetPath, volume?: number) => () => void = (src: SfxAssetPath, volume = 0.5) => { //FIXME: i will be confuse about the name here.
+export const useSfx: (src: SfxAssetPath, volume?: number) => () => void = (src: SfxAssetPath, volume = UI_CONSTANTS.DEFAULT_VOLUME) => { //FIXME: i will be confuse about the name here.
   const { isSfxMuted, sfxVolume } = useSfxContext();
 
   return useCallback(() => {

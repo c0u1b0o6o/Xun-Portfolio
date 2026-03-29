@@ -13,6 +13,15 @@ const CONFIG = {
   FFT_SIZE: 64,           // BAR_COUNT * 2
 };
 
+// Properly typed AudioContext for webkit support
+type AudioContextConstructor = { new(): AudioContext };
+
+declare global {
+  interface Window {
+    webkitAudioContext?: AudioContextConstructor;
+  }
+}
+
 export default function CavaVisualizer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -44,8 +53,13 @@ export default function CavaVisualizer() {
     if (audioContextRef.current || !audioRef?.current) return;
 
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-      const ctx = new AudioCtx();
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) {
+        console.warn('[Visualizer] Web Audio API not supported');
+        return;
+      }
+      
+      const ctx = new AudioContextClass();
       const analyser = ctx.createAnalyser();
       
       analyser.fftSize = CONFIG.FFT_SIZE;
@@ -78,6 +92,8 @@ export default function CavaVisualizer() {
 
     const analyser = analyserRef.current;
     const dataArray = dataArrayRef.current;
+    if (!dataArray || !analyser || !isPlaying) return;
+
     analyser.getByteFrequencyData(dataArray as any);
 
     const halfCount = CONFIG.BAR_COUNT / 2;

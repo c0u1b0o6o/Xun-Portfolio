@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DragWindow from "../DragWindow";
 import { url } from "inspector";
+import { UI_CONSTANTS } from "@/constants";
 
 export function EmailContent() {
     const [copied, setCopied] = useState(false);
@@ -10,7 +11,7 @@ export function EmailContent() {
     const handleCopy = () => {
         navigator.clipboard.writeText(email);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        setTimeout(() => setCopied(false), UI_CONSTANTS.COPY_FEEDBACK_DURATION);
     };
 
     return (
@@ -65,7 +66,7 @@ export function DiscordContent() {
     const handleCopy = () => {
         navigator.clipboard.writeText(username);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        setTimeout(() => setCopied(false), UI_CONSTANTS.COPY_FEEDBACK_DURATION);
     };
 
     return (

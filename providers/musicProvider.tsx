@@ -4,6 +4,7 @@ import { MusicContextType, MusicProps } from "@/types/music";
 import React, { useContext } from "react";
 import { createContext, useEffect } from "react";
 import { MUSIC_ASSETS } from "@/constants/music";
+import { UI_CONSTANTS } from "@/constants";
 
 const defaultValue: MusicContextType = {
   isPlaying: false,
@@ -21,7 +22,7 @@ const defaultValue: MusicContextType = {
   prevTrack: () => {
     console.warn("prevTrack is not implemented now. pls check.");
   },
-  musicVolume: 0.5,
+  musicVolume: UI_CONSTANTS.DEFAULT_VOLUME,
   setMusicVolume: () => {
     console.warn("setMusicVolume is not implemented now. pls check.");
   },
@@ -39,11 +40,10 @@ const MusicContext = createContext<MusicContextType>(defaultValue);
 // 3. , nothing, you should take care bout it bro. It'll run all the time when anything updated.
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = React.useState(false); // Changed to isPlaying, default false
-  const [isMounted, setIsMounted] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<MusicProps>(
     MUSIC_ASSETS.CRUSH,
   );
-  const [musicVolume, setMusicVolume] = React.useState(0.5);
+  const [musicVolume, setMusicVolume] = React.useState<number>(UI_CONSTANTS.DEFAULT_VOLUME);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   // ---This useEffect will run once while amounting.---
@@ -63,22 +63,18 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     if (savedVolume) {
       setMusicVolume(parseFloat(savedVolume));
     } else {
-      localStorage.setItem("musicVolume", JSON.stringify(0.5));
+      localStorage.setItem('musicVolume', JSON.stringify(UI_CONSTANTS.DEFAULT_VOLUME));
     }
-
-    setIsMounted(true);
 
     return () => {
       audio.pause();
-      audio.src = "";
+      audio.src = '';
       audioRef.current = null;
     };
   }, []); // 只在掛載時執行一次
 
-  // ---This useEffect will rerun when the isMusicMuted or currentTrack state changes.---
+  // ---This useEffect will rerun when the isPlaying or currentTrack state changes.---
   useEffect(() => {
-    if (!isMounted) return;
-
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -98,7 +94,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     } else {
       audio.pause();
     }
-  }, [isPlaying, isMounted, currentTrack, musicVolume]);
+  }, [isPlaying, currentTrack, musicVolume]);
 
   // ---This is the function to toggle the music mute state. We Abstracted it before.---
   // 1. set toggle state, if 1 ? 0 : 1. Yeah. You should know what im talkin bout.

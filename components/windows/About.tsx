@@ -2,6 +2,7 @@
 //FIXME: This file is shit. Need to refactor. Ill do it later.
 import { useEffect, useState } from "react";
 import DragWindow from "../DragWindow";
+import { UI_CONSTANTS } from "@/constants";
 
 export function AboutWindow() {
     return (
@@ -104,14 +105,14 @@ export function AboutWindow() {
 export function NameDisplay() {
     const [toggleName, setToggleName] = useState(true);
     const [isHover, setIsHover] = useState(false);
-    const playClickSfx = useSfx("/sfx/click.wav", 0.5);
+    const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
 
     // auto switch name every 3 secs.
     useEffect(() => {
         if (isHover) return;
         const interval = setInterval(() => {
             setToggleName(prev => !prev);
-        }, 3000);
+        }, UI_CONSTANTS.NAME_DISPLAY.AUTO_SWITCH_INTERVAL);
         return () => clearInterval(interval);
     }, [isHover]);
 
@@ -126,8 +127,8 @@ export function NameDisplay() {
     // stiffness means how fast it will move. Higher will make the jiggle faster. 1000 very fast.
     const nameVariants: Variants = {
         initial: { y: 20, opacity: 0 },
-        animate: { y: 0, opacity: 1, transition: { y: { duration: 0.25, type: "spring", damping: 10, stiffness: 1000 } } },
-        exit: { y: -20, opacity: 0, transition: { duration: 0.2, ease: "easeIn" } },
+        animate: { y: 0, opacity: 1, transition: { y: { duration: UI_CONSTANTS.NAME_DISPLAY.ENTER_DURATION, type: "spring", damping: 10, stiffness: 1000 } } },
+        exit: { y: -20, opacity: 0, transition: { duration: UI_CONSTANTS.NAME_DISPLAY.EXIT_DURATION, ease: "easeIn" } },
     };
 
     return (

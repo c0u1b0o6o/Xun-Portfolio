@@ -3,9 +3,10 @@ import { RiBallPenFill, RiInformationFill, RiMusicAiFill, RiPhoneFill, RiSetting
 import { NavButton } from "../NavButton";
 import { useSfx, useWindowContext } from "@/providers";
 import { WindowId } from "@/types/window";
+import { UI_CONSTANTS } from "@/constants";
 
 export function WelcomeWindow(){
-  const playClickSfx = useSfx("/sfx/click.wav", 0.5);
+  const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
   const { toggleWindow } = useWindowContext();
   const handleOnClick = (windowId:WindowId) => {
     return () => {

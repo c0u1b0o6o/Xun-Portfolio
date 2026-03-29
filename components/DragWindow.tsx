@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useLayout, useSfx, useWindowContext } from "@/providers";
 import { RiCloseLine } from "react-icons/ri";
 import { WindowId } from '../types/window';
+import { UI_CONSTANTS } from '@/constants';
 
 interface DragWindowProps {
     children: React.ReactNode;
@@ -15,9 +16,9 @@ interface DragWindowProps {
 export default function DragWindow({ children, title = 'None', id, className}: DragWindowProps) {
     const dragControls = useDragControls();
     const constrainRef = useLayout(); 
-    const playClickSfx = useSfx("/sfx/click.wav", 0.5);
+    const playClickSfx = useSfx("/sfx/click.wav", UI_CONSTANTS.DEFAULT_VOLUME);
 
-    const [isDraggin, setIsDraggin] = React.useState(false);
+    const [isDragging, setIsDragging] = React.useState(false);
 
     const { toggleWindow,focusWindow,updatePosition} = useWindowContext();
     const windowState = useWindowContext().windows[id];;
@@ -49,28 +50,28 @@ export default function DragWindow({ children, title = 'None', id, className}: D
             dragControls={dragControls}
             dragMomentum={true}
             dragTransition={{
-                power: 0.2,
-                timeConstant: 300, 
+                power: UI_CONSTANTS.DRAG_ANIMATION.MOMENTUM_POWER,
+                timeConstant: UI_CONSTANTS.DRAG_ANIMATION.MOMENTUM_TIME_CONSTANT, 
             }}
             dragListener={false}  
             whileDrag={{ 
-                scale: 1.05, 
-                transition: { duration: 0.15, ease: "easeOut" }, 
+                scale: UI_CONSTANTS.DRAG_ANIMATION.SCALE_WHILE_DRAGGING, 
+                transition: { duration: UI_CONSTANTS.DRAG_ANIMATION.TRANSITION_DURATION, ease: "easeOut" }, 
             }}
             onDragEnd={(event,info) => {
                 updatePosition(id, info.point.x, info.point.y);
-                setIsDraggin(false);
+                setIsDragging(false);
                 playClickSfx(); 
             }}
             onDragStart={() => {
-                setIsDraggin(true);
+                setIsDragging(true);
                 playClickSfx(); 
             }}
             dragConstraints={constrainRef || undefined}
             className={`shadow-lg transition-shadow duration-200 rounded-lg select-none ${className || ''}`}
             
        >
-            <div style={{pointerEvents: isDraggin ? 'none' : 'auto'}} // DO NOT CHANGE
+            <div style={{pointerEvents: isDragging ? 'none' : 'auto'}} // DO NOT CHANGE
                 onPointerDown={(e) => {dragControls.start(e); focusWindow(id);}} 
                 className="relative bg-ink-900 rounded-lg pt-2 px-2 pb-1"
             >
