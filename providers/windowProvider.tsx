@@ -19,6 +19,7 @@ const DEFAULT_WINDOWS_STATES: Record<WindowId, WindowProps> = {
   musicplayer: { id: "musicplayer", isOpen: false, x: 0, y: 0, z: 10 },
   discord: { id: "discord", isOpen: false, x: 200, y: 200, z: 10 },
   email: { id: "email", isOpen: false, x: 250, y: 250, z: 10 },
+  mobile_warning: { id: "mobile_warning", isOpen: true, x: 250, y: 250, z: 10 },
   portfolio_link: {
     id: "portfolio_link",
     isOpen: false,

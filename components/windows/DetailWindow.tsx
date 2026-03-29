@@ -34,7 +34,7 @@ export function DiscordContent() {
     return (
         <div className="p-6 flex flex-col justify-center items-center gap-4 w-fit select-none">
             <div className="text-start w-full">
-                <div className="flex flex-row items-end justify-center mb-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-end justify-center mb-6">
                     <h1 className="text-center font-mono text-2xl font-bold italic mr-4">
                         are u using
                     </h1>

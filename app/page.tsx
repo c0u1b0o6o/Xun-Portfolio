@@ -1,6 +1,6 @@
 "use client";
 import DotGridBackground from "@/components/DotGridBackground";
-import React from "react";
+import React, { useEffect } from "react";
 import { LayoutProvider } from "@/providers/layoutProvider";
 import { WelcomeWindow } from "@/components/windows/Welcome";
 import { ContactWindow } from "@/components/windows/Contact";
@@ -11,6 +11,20 @@ import { MusicPlayerWindow } from "@/components/windows/MusicPlayer";
 import { BlogPreviewWindow } from "@/components/windows/BlogPreview";
 import { DetailWindows } from "@/components/windows/DetailWindow";
 import { useMediaQuery, BREAKPOINTS } from "@/hooks";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { RiCloseLine, RiErrorWarningFill } from "react-icons/ri";
+import DragWindow from "@/components/DragWindow";
+
+function MobileWarning() {
+  return (
+    <DragWindow title="Do u have a PC(?????" id={"mobile_warning"} className="">
+      <h1>
+        Mobile Version is not the best way to experien this website, im just saying :(
+      </h1>
+    </DragWindow>
+  );
+}
 
 export default function Home() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
@@ -35,6 +49,7 @@ export default function Home() {
         <MusicPlayerWindow />
         <BlogPreviewWindow />
         <DetailWindows />
+        {isMobile && <MobileWarning />}
       </LayoutProvider>
     </main>
   );

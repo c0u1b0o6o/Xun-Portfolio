@@ -1,7 +1,7 @@
 /**
  * This file contains the types for Music Provider and Music Hook.
  */
-export const WINDOW_ID ={
+export const WINDOW_ID = {
     WELCOME: "welcome",
     ABOUT: "about",
     BLOG: "blog",
@@ -11,5 +11,6 @@ export const WINDOW_ID ={
     DISCORD: "discord",
     EMAIL: "email",
     PORTFOLIO_LINK: "portfolio_link",
+    MOBILE_WARNING: "mobile_warning",
 } as const;
 

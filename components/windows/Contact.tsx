@@ -86,7 +86,7 @@ function SocialButton({
       title={name}
     >
       <Icon className="text-5xl sm:text-4xl md:text-6xl transition-colors duration-200" />
-      <h1 className="font-ex-thin text-ink-900 dark:text-gray-200 italic leading-none text-sm sm:text-sm md:text-base">
+      <h1 className="font-mono font-bold italic text-sm sm:text-sm md:text-base">
         {name}
       </h1>
     </button>

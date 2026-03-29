@@ -75,28 +75,39 @@ export default function DragWindow({ children, title = 'None', id, className}: D
         return (
             <AnimatePresence>
                 {windowState?.isOpen && (
-                    <>
+                    <motion.div
+                        key={`bottom-sheet-${id}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[100] flex flex-col justify-end"
+                        onClick={handleClose}
+                    >
                         {/* 背景遮罩 */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-                            onClick={handleClose}
-                        />
+                        <div className="absolute inset-0 bg-black/60 backdrop-blur-md" />
+
                         {/* Bottom Sheet 視窗 */}
                         <motion.div
-                            initial={{ y: "100%", opacity: 0.5 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: "100%", opacity: 0 }}
+                            initial={{ y: "100%" }}
+                            animate={{ y: 0 }}
+                            exit={{ y: "100%", transitionEnd: { pointerEvents: "none" } }}
                             transition={{ type: "spring", damping: 30, stiffness: 350 }}
-                            className={`fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] select-none ${className || ''}`}
+                            drag="y"
+                            dragConstraints={{ top: 0, bottom: 0 }}
+                            dragElastic={{ top: 0, bottom: 0.5 }}
+                            onDragEnd={(e, info) => {
+                                if (info.offset.y > 100) {
+                                    handleClose();
+                                }
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                            className={`relative w-full max-h-[85vh] select-none ${className || ''}`}
                         >
-                            <div className="relative bg-ink-900 rounded-t-2xl pt-2 px-2 pb-1">
+                            <div className="relative bg-ink-900 rounded-t-2xl pt-2 px-2 pb-1 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
                                 {/* 拉柄指示器 */}
-                                <div className="flex justify-center pt-2 pb-1">
-                                    <div className="w-10 h-1 rounded-full bg-surface-base/40" />
+                                <div className="flex justify-center pt-2 pb-1 cursor-grab active:cursor-grabbing">
+                                    <div className="w-12 h-1.5 rounded-full bg-surface-base/30" />
                                 </div>
                                 {/* Header */}
                                 <div className="flex flex-row items-center justify-between px-1">
@@ -106,12 +117,21 @@ export default function DragWindow({ children, title = 'None', id, className}: D
                                     <CloseButton onClick={handleClose} />
                                 </div>
                                 {/* Content Area */}
-                                <div className="flex flex-wrap items-center justify-center w-full p-3 bg-surface-elevated rounded-t-lg shadow-lg text-center overflow-y-auto max-h-[calc(85vh-5rem)]">
+                                <div 
+                                    onPointerDownCapture={(e) => {
+                                        // 防止內部捲動時觸發拖曳
+                                        const target = e.target as HTMLElement;
+                                        if (target.closest('.overflow-y-auto')) {
+                                            e.stopPropagation();
+                                        }
+                                    }}
+                                    className="flex flex-wrap items-center justify-center w-full p-3 bg-surface-elevated rounded-t-lg shadow-[inset_0_2px_10px_rgba(0,0,0,0.1)] text-center overflow-y-auto max-h-[calc(85vh-5rem)]"
+                                >
                                     {children}
                                 </div>
                             </div>
                         </motion.div>
-                    </>
+                    </motion.div>
                 )}
             </AnimatePresence>
         );
