@@ -12,8 +12,6 @@ import { BlogPreviewWindow } from "@/components/windows/BlogPreview";
 import { DetailWindows } from "@/components/windows/DetailWindow";
 import { useMediaQuery, BREAKPOINTS } from "@/hooks";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { RiCloseLine, RiErrorWarningFill } from "react-icons/ri";
 import DragWindow from "@/components/DragWindow";
 
 function MobileWarning() {
