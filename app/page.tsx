@@ -18,7 +18,7 @@ import DragWindow from "@/components/DragWindow";
 
 function MobileWarning() {
   return (
-    <DragWindow title="Do u have a PC(?????" id={"mobile_warning"} className="">
+    <DragWindow title="Do u have a PC(?????" id={"mobile_warning"} className="" aria-label="Mobile optimization notice">
       <h1>
         Mobile Version is not the best way to experien this website, im just saying :(
       </h1>
@@ -38,17 +38,21 @@ export default function Home() {
           ? "relative min-h-screen w-full flex flex-col items-center justify-center p-4"
           : "absolute min-h-screen w-full flex flex-col items-center justify-center p-24"
       }
+      role="main"
+      aria-label="Xun's portfolio main content area"
     >
       <LayoutProvider value={constraintsRef}>
-        <DotGridBackground />
+        <DotGridBackground aria-hidden="true" />
         <WelcomeWindow />
         {/* 手機上這些是 bottom sheet overlay，不佔 flow 空間 */}
-        <ContactWindow />
-        <SettingWindow />
-        <AboutWindow />
-        <MusicPlayerWindow />
-        <BlogPreviewWindow />
-        <DetailWindows />
+        <section aria-label="Portfolio information sections">
+          <ContactWindow />
+          <SettingWindow />
+          <AboutWindow />
+          <MusicPlayerWindow />
+          <BlogPreviewWindow />
+          <DetailWindows />
+        </section>
         {isMobile && <MobileWarning />}
       </LayoutProvider>
     </main>

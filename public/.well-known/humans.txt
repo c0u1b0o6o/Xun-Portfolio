@@ -1,0 +1,17 @@
+/* TEAM */
+Developer: Xun
+Site: https://xun-portfolio.vercel.app/
+Contact: cuboo (Discord)
+Location: Taichung, Taiwan
+
+/* SITE */
+Last update: 2026/03/30
+Standards: HTML5, CSS3, TypeScript, Next.js 16
+Components: React, Tailwind CSS
+Technology: Node.js, Vercel Hosting
+
+/* THANKS */
+Built with love and React.
+Fonts: Geist, Montserrat from Google Fonts
+Icons: react-icons
+Animations: Framer Motion
