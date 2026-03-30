@@ -15,17 +15,17 @@ import Image from "next/image";
  */
 export function AboutWindow() {
     return (
-        <DragWindow title="About." id="about" className="max-w-2xl">
-            <div className="mb-3 flex w-full justify-start items-center gap-y-7 p-5">
-                <div className="shrink-0 mr-2">
-                    <GifAvatar imageScale={1.5} offsetY={20} offsetX={-5}/>
+        <DragWindow title="About." id="about" className="sm:min-w-2xl">
+            <div className="mb-3 flex flex-col sm:flex-row w-full justify-center sm:justify-start items-center gap-4 sm:gap-y-7 p-4 sm:p-5">
+                <div className="shrink-0 sm:mr-2">
+                    <GifAvatar imageScale={1.5} offsetY={20} offsetX={-5} />
                 </div>
-                <div className="flex flex-col gap-4 ml-2">
+                <div className="flex flex-col items-center sm:items-start gap-3 sm:gap-4 sm:ml-2">
                     <NameDisplay />
-                    <p className="text-start ml-5">
-                        Major in CS but can only <span className="font-bold text-2xl">VIBING</span>.
+                    <p className="text-center sm:text-start text-sm sm:text-base md:text-xl sm:ml-5">
+                        Major in CS but can only <span className="font-bold text-lg sm:text-xl md:text-2xl">VIBING</span>.
                         <br />
-                        I think im <span className="font-bold text-2xl">COOKED</span>.
+                        I think im <span className="font-bold text-lg sm:text-xl md:text-2xl">COOKED</span>.
                     </p>
                 </div>
             </div>
@@ -65,28 +65,28 @@ export function AboutWindow() {
                     <label className="text-sm font-normal text-ink-700">(get in)</label>TOUCH ME???
                 </h1>
                 <p>
-                    Feel free to say hi to me!<br/>
-                    I keep it lowkey bruh.<br/>
-                    I need some homies now.😭😭😭<br/>
+                    Feel free to say hi to me!<br />
+                    I keep it lowkey bruh.<br />
+                    I need some homies now.😭😭😭<br />
                 </p>
                 <p>
                     I dont know how to rizz a friend, if you're down to my homie, that's a W. No Cap bruh🥀🥀.
                 </p>
                 <CopyButton
                     textToCopy={"cuboo"}
-                    displayText={"Copy my username ADD ME ON DISCORDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"}
+                    displayText={"Copy my username ADD ME ON DISCORDDDDDDDDDDDD"}
                     feedbackDuration={UI_CONSTANTS.COPY_FEEDBACK_DURATION}
                 />
                 <h1 className="mt-3 text-3xl">
                     SPIRIT
                 </h1>
-                    <div className="p-3 bg-black/20 rounded border border-white/5 font-mono text-sm">
+                <div className="p-3 bg-black/20 rounded border border-white/5 font-mono text-sm">
                     <p className="text-red-400">{'[CRITICAL]'} ENGLISH: COOKED</p>
                     <p className="text-red-400">{'[CRITICAL]'} GPA: COOKED</p>
                     <p className="text-red-400">{'[CRITICAL]'} LIFE: COOKED</p>
-                    </div>
+                </div>
                 <p>
-                    Jealous of naturals, too lazy with myself.<br/>
+                    Jealous of naturals, too lazy with myself.<br />
                     But I'm still in the game, I'll back to the grind.
                 </p>
                 {/* HACK: just put a image here, i dont want to make a separate component for it */}
@@ -96,28 +96,28 @@ export function AboutWindow() {
                     Shout Out
                 </h1>
                 <div className="border-l-2 pl-4">
-                    <ExternalLink 
-                      href="https://www.sharyap.com/"
-                      variant="large"
+                    <ExternalLink
+                        href="https://www.sharyap.com/"
+                        variant="large"
                     >
                         shar's desktop
                     </ExternalLink>
                     <p className="">
-                    This portfolio UI/UX inspired by hers.
-                    It's so cool and aesthetic, and I want to make one for myself. So here we are.
+                        This portfolio UI/UX inspired by hers.
+                        It's so cool and aesthetic, and I want to make one for myself. So here we are.
                     </p>
                 </div>
-                <ExternalLink 
+                <ExternalLink
                     href="https://github.com/c0u1b0o6o/Xun-Portfolio"
-                    variant="minimal" 
+                    variant="minimal"
                     className="mt-4"
                 >
                     CHECK THE SRC ON GITHUB!
                 </ExternalLink>
                 <p className="text-ink-700 text-sm">
-                    (I knew there're a lot of AI slot in src, i'll rewrite it later.<br/> Dont judge me.😭😭😭
-                    <br/>
-                    Btw, git history is a mess, i knew it, im sorry....😭.
+                    (I knew there're a lot of AI slot in src, i'll rewrite it later.<br /> Dont judge me.😭😭😭
+                    <br />
+                    Btw, git history is a mess, i knew it, im sorry....😭
                 </p>
             </div>
         </DragWindow>

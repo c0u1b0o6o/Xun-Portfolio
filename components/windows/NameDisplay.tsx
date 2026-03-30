@@ -69,7 +69,7 @@ export default function NameDisplay() {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       whileHover={{ scale: 1.1 }}
-      className="relative flex w-fit items-end justify-center cursor-pointer overflow-visible"
+      className="bg-amber-200 relative flex w-full items-end justify-center sm:justify-start cursor-pointer overflow-visible"
     >
       {/* 使用 mode="wait" 確保舊名稱完全退出後再顯示新名稱 */}
       <AnimatePresence mode="wait">
@@ -80,9 +80,9 @@ export default function NameDisplay() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex flex-row w-fit ml-2"
+            className="flex flex-row justify-center w-full sm:w-fit ml-2"
           >
-            <h1 className="text-center font-mono font-bold text-4xl sm:text-5xl md:text-6xl tracking-wider italic">
+            <h1 className="btext-center font-mono font-bold text-4xl sm:text-5xl md:text-6xl tracking-wider italic">
               MengXun
             </h1>
             <h1 className="sm:ml-2 font-montserrat font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-wider primary-gradient-text">
@@ -96,7 +96,7 @@ export default function NameDisplay() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="w-fit"
+            className="w-full sm:w-fit"
           >
             <h1 className="primary-gradient-text text-center font-mono font-bold text-4xl sm:text-5xl md:text-6xl tracking-wider italic">
               Cuboo
