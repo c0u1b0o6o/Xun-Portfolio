@@ -7,6 +7,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSfx } from '@/providers';
 
 export interface CopyButtonProps {
   /** 要複製的文本內容 */
@@ -38,15 +39,16 @@ export function CopyButton({
   copiedText = 'Copied!',
   hintText = 'Click it to copy!',
   containerClassName = 'cursor-pointer group relative flex flex-col items-center',
-  textClassName = 'font-mono text-2xl underline underline-offset-4 group-hover:scale-105 group-hover:text-bright-amber text-tropical-teal transition-all duration-200',
+  textClassName = 'text-center font-mono text-2xl underline underline-offset-4 group-hover:scale-105 group-hover:text-bright-amber text-tropical-teal transition-all duration-200',
   feedbackClassName = 'text-ink-700',
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
-
+  const playPaySfx = useSfx("/sfx/pay.mp3");
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
+      playPaySfx();
       setTimeout(() => setCopied(false), feedbackDuration);
     } catch (err) {
       console.warn("[CopyButton] Failed to copy text:", err);

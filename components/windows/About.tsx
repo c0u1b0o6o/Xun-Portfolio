@@ -5,7 +5,8 @@ import { UI_CONSTANTS } from "@/constants";
 import NameDisplay from "@/components/windows/NameDisplay";
 import { GifAvatar } from "@/components/windows/Avatar";
 import { ExternalLink } from "@/components/ExternalLink";
-
+import { CopyButton } from "../CopyButton";
+import Image from "next/image";
 /**
  * AboutWindow - 關於我的視窗組件
  * 
@@ -14,36 +15,36 @@ import { ExternalLink } from "@/components/ExternalLink";
  */
 export function AboutWindow() {
     return (
-        <DragWindow title="About." id="about" className="max-w-[calc(100vw)] sm:max-w-2xl">
-            <div className="mb-3 flex flex-col sm:flex-row w-full justify-center sm:justify-start items-center gap-4 sm:gap-y-7 p-4 sm:p-5">
-                <div className="shrink-0 sm:mr-2">
+        <DragWindow title="About." id="about" className="max-w-2xl">
+            <div className="mb-3 flex w-full justify-start items-center gap-y-7 p-5">
+                <div className="shrink-0 mr-2">
                     <GifAvatar imageScale={1.5} offsetY={20} offsetX={-5}/>
                 </div>
-                <div className="flex flex-col items-center sm:items-start gap-3 sm:gap-4 sm:ml-2">
+                <div className="flex flex-col gap-4 ml-2">
                     <NameDisplay />
-                    <p className="text-center sm:text-start text-sm sm:text-base md:text-xl sm:ml-5">
-                        Major in CS but can only <span className="font-bold text-lg sm:text-xl md:text-2xl">VIBING</span>.
+                    <p className="text-start ml-5">
+                        Major in CS but can only <span className="font-bold text-2xl">VIBING</span>.
                         <br />
-                        I think im <span className="font-bold text-lg sm:text-xl md:text-2xl">COOKED</span>.
+                        I think im <span className="font-bold text-2xl">COOKED</span>.
                     </p>
                 </div>
             </div>
-            <div className="text-start mt-2 flex max-h-81.25 overflow-y-auto justify-start w-full flex-col gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="text-start mt-2 flex max-h-81.25 overflow-y-auto justify-start w-full flex-col gap-4 p-5">
                 <p className="w-full text-start">
                     Hey, it's me. I am...
                 </p>
-                <ul className="mt-2 ml-4 list-disc list-inside text-start text-sm sm:text-base md:text-lg">
+                <ul className="mt-2 ml-4 list-disc list-inside text-start text-lg">
                     <li>Frontend Learner:
-                        <span className="text-base sm:text-lg md:text-xl font-bold ml-2">Nextjs,</span>
-                        <span className="text-blue-300 text-base sm:text-lg md:text-xl font-bold ml-2">Tailwind CSS,</span>
-                        <span className="text-blue-400 text-base sm:text-lg md:text-xl font-bold ml-2">TS</span>.
+                        <span className="text-xl font-bold ml-2">Nextjs,</span>
+                        <span className="text-blue-300 text-xl font-bold ml-2">Tailwind CSS,</span>
+                        <span className="text-blue-400 text-xl font-bold ml-2">TS</span>.
                     </li>
-                    <li><span className="text-bright-amber text-base sm:text-lg md:text-xl font-bold">Python</span> Enjoyer.</li>
+                    <li><span className="text-bright-amber text-xl font-bold">Python</span> Enjoyer.</li>
                     <li>Watching brainrot shit posts everyday.</li>
                     <li>Grade Cooker. I dont want to study bro🥀🥀</li>
                     <li>ACT Lover, especially Silksong, ZZZ, Monster Hunter.</li>
                 </ul>
-                <h1 className="mt-3 text-2xl sm:text-3xl">
+                <h1 className="mt-3 text-3xl">
                     Education
                 </h1>
                 <div className="border-l-2 pl-4">
@@ -60,30 +61,41 @@ export function AboutWindow() {
                         IT Department
                     </p>
                 </div>
-                <p className="mt-4 w-full text-start">
-                    I'm Major in CS now but I can only Vibe Coding.<br />
-                    But I'll keep learning and improving myself.
-                    <br />
-                    <span className="text-ink-700 text-sm">Maybe ..?</span>
-                </p>
-                <h1 className="mt-3 text-2xl sm:text-3xl">
-                    Contributers
+                <h1 className="mt-3 text-3xl">
+                    <label className="text-sm font-normal text-ink-700">(get in)</label>TOUCH ME???
                 </h1>
-                <div className="border-l-2 pl-4">
-                    <p>
-                        Me, and AI.<br/>
-                        And any cool open source community that I used in.
-                    </p>
-                </div>
-                <div className="border-l-2 pl-4">
-                    <p>
-                        Thanks for all the libaries and resources that I can use for free to make ts shit🥀🥀🥀
-                    </p>
-                </div>
-                <h1 className="mt-3 text-2xl sm:text-3xl">
+                <p>
+                    Feel free to say hi to me!<br/>
+                    I keep it lowkey bruh.<br/>
+                    I need some homies now.😭😭😭<br/>
+                </p>
+                <p>
+                    I dont know how to rizz a friend, if you're down to my homie, that's a W. No Cap bruh🥀🥀.
+                </p>
+                <CopyButton
+                    textToCopy={"cuboo"}
+                    displayText={"Copy my username ADD ME ON DISCORDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"}
+                    feedbackDuration={UI_CONSTANTS.COPY_FEEDBACK_DURATION}
+                />
+                <h1 className="mt-3 text-3xl">
+                    SPIRIT
+                </h1>
+                    <div className="p-3 bg-black/20 rounded border border-white/5 font-mono text-sm">
+                    <p className="text-red-400">{'[CRITICAL]'} CALCULUS: COOKED</p>
+                    <p className="text-red-400">{'[CRITICAL]'} GPA: COOKED</p>
+                    <p className="text-red-400">{'[CRITICAL]'} LIFE: COOKED</p>
+                    </div>
+                <p>
+                    Jealous of naturals, too lazy with myself.<br/>
+                    But I'm still in the game, I'll back to the grind.
+                </p>
+                {/* HACK: just put a image here, i dont want to make a separate component for it */}
+                <Image src="/img/minion.png" alt="Minion" width={100} height={100} priority={true} />
+
+                <h1 className="mt-3 text-3xl">
                     Shout Out
                 </h1>
-                <div className="border-l-2 pl-4 text-start">
+                <div className="border-l-2 pl-4">
                     <ExternalLink 
                       href="https://www.sharyap.com/"
                       variant="large"
@@ -100,7 +112,7 @@ export function AboutWindow() {
                     variant="minimal" 
                     className="mt-4"
                 >
-                    CHECK MY PORTFOLIO SOURCE CODE ON GITHUB!
+                    CHECK THE STC ON GITHUB!
                 </ExternalLink>
             </div>
         </DragWindow>
