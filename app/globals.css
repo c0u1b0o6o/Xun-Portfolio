@@ -8,19 +8,15 @@
   --color-shadow-grey: #2e282a;
   --color-bright-fern: #76b041;
 
-  /* 字體定義 */
-  --font-montserrat: "Montserrat", sans-serif;
-  --font-jhenghei: "Microsoft JhengHei", "微軟正黑體", sans-serif;
-
+  /* 字體定義：統一使用 Montserrat 與 正黑體 作為主要字體棧 */
+  --font-mono: "ui-monospace", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --font-montserrat: "Montserrat", "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", "Apple LiGothic Medium", "sans-serif";
+  
   /* 自定義陰影 */
   --shadow-lg: 0 0 1px rgba(0, 0, 0, 0.1),
-    /* 最內層：增加邊界質感 */
     0 0 10px rgba(0, 0, 0, 0.05),
-    /* 中間層：平滑過度 */
     0 0 30px rgba(0, 0, 0, 0.1),
-    /* 擴散層：環境遮蔽感 */
     0 0 60px rgba(0, 0, 0, 0.15);
-  /* 最外層：大範圍柔和感 */
 
   /* --- 預設為淺色模式 (Light Mode) 變數 --- */
   --color-surface-base: #f5f5f7;
@@ -31,17 +27,12 @@
 }
 
 /* --- 深色模式 (Dark Mode) 覆寫 --- */
-/* 方式 A: 跟隨系統設定 (推薦) */
 @media (prefers-color-scheme: dark) {
   @theme {
     --color-surface-base: #121212;
-    /* 深背景 */
     --color-surface-elevated: #1e1e1e;
-    /* 深色卡片背景 */
     --color-ink-900: #f5f5f7;
-    /* 亮文字 */
     --color-ink-700: #a1a1a6;
-    /* 次要亮文字 */
     --color-heading: #ffffff;
   }
 }
@@ -50,9 +41,11 @@
   body {
     background-color: var(--color-surface-base);
     color: var(--color-ink-900);
-    font-family: var(--font-mono), var(--font-montserrat), var(--font-jhenghei);
+    /* 統一字體：移除原本放在最前面的 font-mono */
+    font-family: var(--font-mono), var(--font-montserrat);
     transition: background-color 0.3s ease, color 0.3s ease;
-    /* 讓切換更平滑 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
@@ -61,14 +54,21 @@
   h4,
   h5,
   h6 {
+    /* 標題字體與內文統一，僅加粗 */
     font-family: var(--font-mono);
     color: var(--color-heading);
-    font-weight: bold;
+    font-weight: 700;
+  }
+
+  /* 確保所有輸入與按鈕繼承主字體 */
+  button, input, select, textarea {
+    font-family: inherit;
   }
 
   /* 響應式段落文字：手機 base → 桌面 xl */
   p {
     font-size: clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
+    line-height: 1.6;
   }
 }
 
@@ -86,7 +86,6 @@
     opacity: 0.4;
   }
 
-  /* 手機上縮小 dot-grid 間距 */
   @media (max-width: 640px) {
     .dot-grid-base {
       background-size: 30px 30px;
@@ -97,17 +96,9 @@
 }
 
 @keyframes gradientShift {
-  0% {
-    background-position: 0% center;
-  }
-
-  50% {
-    background-position: 100% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 200% center; }
 }
 
 @layer base {
@@ -141,18 +132,19 @@
     will-change: background-position;
   }
 
-  /* 單行程式碼 (Inline Code) */
+  /* 只有程式碼相關元素保留 font-mono */
   :not(pre)>code {
-    @apply px-1.5 py-0.5 rounded-md text-sm font-mono;
+    @apply px-1.5 py-0.5 rounded-md text-sm;
+    font-family: var(--font-mono);
     background-color: var(--color-surface-elevated);
     color: var(--color-spicy-paprika);
     border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   }
 
-  /* 區塊程式碼 (Code Block) */
   pre {
     @apply p-4 rounded-xl overflow-x-auto my-6 border;
+    font-family: var(--font-mono);
     background-color: var(--color-surface-elevated);
     border-color: rgba(0, 0, 0, 0.05);
     box-shadow: var(--shadow-lg);
@@ -160,7 +152,8 @@
   }
 
   pre code {
-    @apply font-mono text-[0.925rem] leading-relaxed;
+    @apply text-[0.925rem] leading-relaxed;
+    font-family: inherit;
     color: var(--color-ink-700);
     background: transparent;
     padding: 0;
@@ -168,7 +161,7 @@
     box-shadow: none;
   }
 
-  /* 深色模式修正 (自動適應) */
+  /* 深色模式修正 */
   @media (prefers-color-scheme: dark) {
     :not(pre)>code {
       background-color: #2a2a2a;

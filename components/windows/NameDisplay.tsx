@@ -69,7 +69,7 @@ export default function NameDisplay() {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       whileHover={{ scale: 1.1 }}
-      className="bg-amber-200 relative flex w-full items-end justify-center sm:justify-start cursor-pointer overflow-visible"
+      className="relative flex w-full items-end justify-center sm:justify-start cursor-pointer overflow-visible"
     >
       {/* 使用 mode="wait" 確保舊名稱完全退出後再顯示新名稱 */}
       <AnimatePresence mode="wait">
