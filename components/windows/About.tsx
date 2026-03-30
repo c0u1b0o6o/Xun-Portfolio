@@ -116,6 +116,8 @@ export function AboutWindow() {
                 </ExternalLink>
                 <p className="text-ink-700 text-sm">
                     (I knew there're a lot of AI slot in src, i'll rewrite it later.<br/> Dont judge me.😭😭😭
+                    <br/>
+                    Btw, git history is a mess, i knew it, im sorry....😭.
                 </p>
             </div>
         </DragWindow>
