@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 只列出真實存在的 URL 路由
   const routes = [
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 1,
