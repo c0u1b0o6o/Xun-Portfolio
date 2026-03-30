@@ -2,8 +2,7 @@
  * This file contains the paths to all the assets used in the project. 
  */
 export const SFX_ASSETS = {
-    CLICK: "/sfx/click.wav",
-    DRAG: "/sfx/drag.wav",
+    DRAG: "/sfx/click.wav",
     CLOSE: "/sfx/close.mp3",
     OPEN: "/sfx/open.mp3",
     OMG: "/sfx/omg.mp3",

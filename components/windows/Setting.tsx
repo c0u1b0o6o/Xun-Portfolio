@@ -45,8 +45,8 @@ export function SettingWindow() {
         />
 
         {/* Individual SFX Mute Controls */}
-        <h1 className="text-xl sm:text-2xl font-bold">Mute Effects</h1>
-          <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
+        <h1 className="w-full overflow-y-auto text-xl sm:text-2xl font-bold">Mute Effects</h1>
+          <div className="flex flex-col gap-2 max-h-40 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {Object.entries(SFX_ASSETS).map(([key, path]) => (
               <div key={key} className="flex items-center gap-3 justify-between">
                 <span className="text-sm">{key}</span>

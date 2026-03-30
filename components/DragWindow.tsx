@@ -118,7 +118,9 @@ export default function DragWindow({ children, title = 'None', id, className}: D
                                 </div>
                                 {/* Content Area */}
                                 <div 
-                                    onPointerDownCapture={(e) => {
+                                    // [AI更動] 將 onPointerDownCapture 改為 onPointerDown
+                                    // 解除使用 Capture 階段強行攔截事件的問題，讓子元件（如 Slider）能正確拿到 pointer events 並更新狀態
+                                    onPointerDown={(e) => {
                                         // 防止內部捲動時觸發拖曳
                                         const target = e.target as HTMLElement;
                                         if (target.closest('.overflow-y-auto')) {

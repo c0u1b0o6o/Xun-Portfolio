@@ -48,8 +48,9 @@ export function MusicPlayerWindow() {
     };
   }, [audioRef.current, currentTrack]); // 重新綁定當音軌更新時
 
-  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProgress(Number(e.target.value));
+  // [AI更動] 修改型別以同時支援 onChange 與 onInput 的事件類型
+  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLInputElement>) => {
+    setProgress(Number(e.currentTarget.value));
   };
 
   const handleSeekCommit = () => {
@@ -116,6 +117,8 @@ export function MusicPlayerWindow() {
               max={duration || 100}
               value={progress}
               onChange={handleSeekChange}
+              // [AI更動] 加入 onInput 以便在手機端拖動時即時更新進度，而不是放開才更新
+              onInput={handleSeekChange}
               onPointerDown={(e) => {
                 e.stopPropagation();
                 isScrubbingRef.current = true;
@@ -123,8 +126,11 @@ export function MusicPlayerWindow() {
               onPointerUp={handleSeekCommit}
               onPointerCancel={handleSeekCommit}
               onMouseUp={handleSeekCommit}
+              // [AI更動] 加入 onTouchEnd 來確保在手機上放開時能確實 commit 變更
               onTouchEnd={handleSeekCommit}
               className="absolute w-full h-full opacity-0 cursor-pointer z-10"
+              // [AI更動] 加入 touchAction: 'none' 防止在手機上左用滑動時觸發瀏覽器的原生捲動/返回行為
+              style={{ touchAction: 'none' }}
             />
           </div>
 

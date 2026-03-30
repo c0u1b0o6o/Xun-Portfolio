@@ -81,7 +81,7 @@ export function AboutWindow() {
                     SPIRIT
                 </h1>
                     <div className="p-3 bg-black/20 rounded border border-white/5 font-mono text-sm">
-                    <p className="text-red-400">{'[CRITICAL]'} CALCULUS: COOKED</p>
+                    <p className="text-red-400">{'[CRITICAL]'} ENGLISH: COOKED</p>
                     <p className="text-red-400">{'[CRITICAL]'} GPA: COOKED</p>
                     <p className="text-red-400">{'[CRITICAL]'} LIFE: COOKED</p>
                     </div>
@@ -112,8 +112,11 @@ export function AboutWindow() {
                     variant="minimal" 
                     className="mt-4"
                 >
-                    CHECK THE STC ON GITHUB!
+                    CHECK THE SRC ON GITHUB!
                 </ExternalLink>
+                <p className="text-ink-700 text-sm">
+                    (I knew there're a lot of AI slot in src, i'll rewrite it later.<br/> Dont judge me.😭😭😭
+                </p>
             </div>
         </DragWindow>
     )
