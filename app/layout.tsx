@@ -21,17 +21,17 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
+  
 export const metadata: Metadata = {
-  title: "Xun - Frontend Developer & Student Portfolio",
-  description: "Xun's portfolio showcasing frontend development skills with Next.js, Tailwind CSS, and TypeScript. Computer Science student at National Taiwan University.",
+  title: "Xun's Portfolio.",
+  description: "Xun's portfolio showcasing frontend development skills with Next.js, Tailwind CSS, and TypeScript. Computer Science student at National Taiwan University Science and Technology.",
   keywords: ["portfolio", "frontend developer", "Next.js", "Tailwind CSS", "TypeScript", "web developer", "Xun"],
   authors: [{ name: "Xun" }],
   creator: "Xun",
   publisher: "Xun",
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app"),
   openGraph: {
-    title: "Xun - Frontend Developer & Student Portfolio",
+    title: "Xun's Portfolio.",
     description: "Explore my portfolio showcasing skills in Next.js, Tailwind CSS, TypeScript, and Python development.",
     url: process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app",
     siteName: "Xun's Portfolio",
@@ -43,12 +43,12 @@ export const metadata: Metadata = {
         alt: "Xun's Portfolio Preview",
       },
     ],
-    locale: "en_US",
+    locale: "zh-TW",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xun - Frontend Developer & Student Portfolio",
+    title: "Xun's Portfolio.",
     description: "Explore my portfolio showcasing skills in Next.js, Tailwind CSS, TypeScript, and Python development.",
     images: ["/og-image.png"],
   },
@@ -60,13 +60,17 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app",
+    canonical: "https://www.cuboouo.com",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: Readonly<{ 
   children: React.ReactNode;
 }>) {
   return (
