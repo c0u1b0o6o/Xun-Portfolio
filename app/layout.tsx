@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "Xun's Portfolio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.png?v=${new Date().getTime()}",
         width: 1200,
         height: 630,
         alt: "Xun's Portfolio Preview",
