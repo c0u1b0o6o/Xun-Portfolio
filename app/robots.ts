@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://xun-portfolio.vercel.app';
+const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.cuboouo.com';
 
 export default function robots(): MetadataRoute.Robots {
   return {
