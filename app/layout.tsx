@@ -24,16 +24,16 @@ const geistMono = Geist_Mono({
   
 export const metadata: Metadata = {
   title: "Xun's Portfolio.",
-  description: "Welcome! Feel free to say hi to me! A CS Student, bout to scoop some fires!",
+  description: "I'm Xun! You can call me Cuboo! Feel free to say hi to me! A CS Student, bout to scoop some fires!",
   keywords: ["portfolio", "frontend developer", "Next.js", "Tailwind CSS", "TypeScript", "web developer", "Xun"],
   authors: [{ name: "Xun" }],
   creator: "Xun",
   publisher: "Xun",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://www.cuboouo.com"),
   openGraph: {
     title: "Xun's Portfolio.",
     description: "Welcome! Feel free to say hi to me! A CS Student, bout to scoop some fires!",
-    url: process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app",
+    url: process.env.NEXT_PUBLIC_URL || "https://www.cuboouo.com",
     siteName: "Xun's Portfolio",
     images: [
       {

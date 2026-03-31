@@ -16,10 +16,10 @@ import DragWindow from "@/components/DragWindow";
 
 function MobileWarning() {
   return (
-    <DragWindow title="Do u have a PC(?????" id={"mobile_warning"} className="" aria-label="Mobile optimization notice">
-      <h1>
+    <DragWindow data-nosnippet title="Do u have a PC(?????" id={"mobile_warning"} className="" aria-label="Mobile optimization notice">
+      <p>
         Mobile Version is not the best way to experien this website, im just saying :(
-      </h1>
+      </p>
     </DragWindow>
   );
 }
