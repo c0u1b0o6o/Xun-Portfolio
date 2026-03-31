@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
   
 export const metadata: Metadata = {
   title: "Xun's Portfolio.",
-  description: "Xun's portfolio showcasing frontend development skills with Next.js, Tailwind CSS, and TypeScript. Computer Science student at National Taiwan University Science and Technology.",
+  description: "Welcome! Feel free to say hi to me! A CS Student, bout to scoop some fires!",
   keywords: ["portfolio", "frontend developer", "Next.js", "Tailwind CSS", "TypeScript", "web developer", "Xun"],
   authors: [{ name: "Xun" }],
   creator: "Xun",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app"),
   openGraph: {
     title: "Xun's Portfolio.",
-    description: "Explore my portfolio showcasing skills in Next.js, Tailwind CSS, TypeScript, and Python development.",
+    description: "Welcome! Feel free to say hi to me! A CS Student, bout to scoop some fires!",
     url: process.env.NEXT_PUBLIC_URL || "https://xun-portfolio.vercel.app",
     siteName: "Xun's Portfolio",
     images: [
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Xun's Portfolio.",
-    description: "Explore my portfolio showcasing skills in Next.js, Tailwind CSS, TypeScript, and Python development.",
-    images: ["/og-image.png"],
+    description: "Welcome! Feel free to say hi to me! A CS Student, bout to scoop some fires!",
+    images: ["/og-image.png?v=${new Date().getTime()}"],
   },
   robots: {
     index: true,
