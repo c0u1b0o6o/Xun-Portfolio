@@ -51,7 +51,7 @@ export default function Home() {
           <BlogPreviewWindow />
           <DetailWindows />
         </section>
-        {/* {isMobile && <MobileWarning />} */}
+        {/* {isMobile && <MobileWarning />}  */}
       </LayoutProvider>
     </main>
   );

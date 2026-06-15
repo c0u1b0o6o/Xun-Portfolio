@@ -10,6 +10,7 @@ export function WelcomeWindow(){
   const playClickSfx = useSfx("/sfx/open.mp3", UI_CONSTANTS.DEFAULT_VOLUME);
   const { toggleWindow } = useWindowContext();
   const handleOnClick = (windowId:WindowId) => {
+    
     return () => {
       toggleWindow(windowId);
       playClickSfx();
