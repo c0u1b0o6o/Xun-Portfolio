@@ -1,7 +1,7 @@
 "use client";
 
 import DragWindow from "@/components/DragWindow";
-import { UI_CONSTANTS } from "@/constants";
+import { UI_CONSTANTS } from "@/components/constants";
 import NameDisplay from "@/components/windows/NameDisplay";
 import { GifAvatar } from "@/components/windows/Avatar";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -75,20 +75,14 @@ export function AboutWindow() {
 
         <h1 className="mt-3 text-3xl">
           <label className="text-sm font-normal text-ink-700 mr-3">
-            (get in)
+            (plssssss :3)
           </label>
-          TOUCH ME???
+          SAY HI TO ME
         </h1>
         <div className="flex flex-col gap-4">
           <p>
-            Feel free to say hi to me!
-            <br />
-            I keep it lowkey bruh.
-            <br />I need some homies now.😭😭😭
-          </p>
-          <p>
-            I dont know how to rizz a friend, if you're down to my homie, that's
-            a W. No Cap bruh🥀🥀.
+            I’m too shy to text first, but if you don't mind my chaotic energy,
+            I will literally be your best friend forever. (no cap🥀🥀).
           </p>
         </div>
 
@@ -133,7 +127,7 @@ export function AboutWindow() {
             <br />
             Dont judge me.😭😭😭
             <br />
-            Btw, git history is a mess, i knew it, im sorry....😭)
+            update(26/6/15): nah, i wont fix ts anymore.
           </p>
         </div>
       </div>
