@@ -1,7 +1,7 @@
 "use client";
 
 import DragWindow from "@/components/DragWindow";
-import { UI_CONSTANTS } from "@/components/constants";
+import { UI_CONSTANTS } from "@/constants";
 import NameDisplay from "@/components/windows/NameDisplay";
 import { GifAvatar } from "@/components/windows/Avatar";
 import { ExternalLink } from "@/components/ExternalLink";
